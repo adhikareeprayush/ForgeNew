@@ -1,0 +1,57 @@
+/* ForgeFunds */
+.heroText-width {
+  max-width: 800px;
+}
+
+.partners-bg {
+  background: #eee7e2;
+}
+
+.fundtab-1 .head {
+  text-transform: uppercase;
+  color: #df6437;
+  font-size: 38px;
+  font-family: "DIN", sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+.fundtab-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Image Container */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Full width of the screen */
+}
+
+/* Image Styles */
+.fund-image {
+  max-width: 100%; /* Image scales down for smaller screens */
+  height: auto; /* Maintains the aspect ratio */
+  max-height: 80vh; /* Ensures the image does not exceed 80% of viewport height */
+  object-fit: contain; /* Ensures the entire image fits without cropping */
+}
+
+.fund-text-orange {
+  color: #e04f26;
+}
+
+.overlay2 {
+  background-color: #2c1601;
+  opacity: 0.9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
