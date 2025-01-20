@@ -59,7 +59,11 @@
         </div>
         <ul class="nav-menus d-flex align-items-center gap-4 text-uppercase">
           <li>
-            <a class="nav-link" href="https://sujan14728.github.io/ForgeNew/forge_main.html">ABOUT </a>
+            <a
+              class="nav-link"
+              href="https://sujan14728.github.io/ForgeNew/forge_main.html"
+              >ABOUT
+            </a>
           </li>
           <li>
             <a
@@ -94,7 +98,11 @@
           </div>
           <ul class="d-flex flex-column gap-3">
             <li>
-              <a class="nav-link" href="https://sujan14728.github.io/ForgeNew/forge_main.html">ABOUT </a>
+              <a
+                class="nav-link"
+                href="https://sujan14728.github.io/ForgeNew/forge_main.html"
+                >ABOUT
+              </a>
             </li>
             <li>
               <a
@@ -243,68 +251,119 @@
 
     <!-- options -->
     <section style="min-height: 100vh">
-      <div class="d-flex gap-2">
-        <div class="dropdown">
-          <button id="dropdownButton1">
-            Futurescopes
-            <img
-              style="height: 8px; object-fit: contain"
-              src="assets/Resources/options/Polygon 17.png"
-              alt=""
-            />
-          </button>
-          <div class="dropdown-menu" id="dropdownMenu1">
-            <a href="#" data-futurescope="Mobility Hardware" >Mobility Hardware </a>
-            <a href="#" data-futurescope="Production Hardware" >Production Hardware </a>
-            <a href="#" data-futurescope="Defence Hardware" >Defence Hardware </a>
-            <a href="#" data-futurescope="Assistive Hardware" >Assistive Hardware </a>
-            <a href="#" data-futurescope="Industrial Hardware" >Industrial Hardware </a>
-            <a href="#" data-futurescope="Energy & Sustainability Hardware" >Energy & Sustainability Hardware </a>
-            <a href="#" data-futurescope="Health Hardware" >Health Hardware </a>
-            <a href="#" data-futurescope="Climate Hardware" >Climate Hardware </a>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button id="dropdownButton2">
-            Stages
-            <img
-              style="height: 8px; object-fit: contain"
-              src="assets/Resources/options/Polygon 17.png"
-              alt=""
-            />
-          </button>
-          <div class="dropdown-menu" id="dropdownMenu2">
-            <a href="#" data-stage="Growth Stage" >Growth Stage </a>
-            <a href="#" data-stage="Product Stage" >Product Stage </a>
-            <a href="#" data-stage="Market Stage" >Market Stage </a>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button id="dropdownButton3">
-            Programs
-            <img
-              style="height: 8px; object-fit: contain"
-              src="assets/Resources/options/Polygon 17.png"
-              alt=""
-            />
-          </button>
-          <div class="dropdown-menu" id="dropdownMenu3">
-            <div class="dropdown-group">
-              <h5>Government OI</h5>
-              <a href="#" data-program="iDEX" >iDEX </a>
-              <a href="#" data-program="CiX" >CiX </a>
+      <div class="d-flex justify-content-between gap-2">
+        <div>
+          <div class="dropdown">
+            <button id="dropdownButton1">
+              Futurescopes
+              <img
+                style="height: 8px; object-fit: contain"
+                src="assets/Resources/options/Polygon 17.png"
+                alt=""
+              />
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu1">
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Mobility Hardware"
+                >Mobility Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Production Hardware"
+                >Production Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Defence Hardware"
+                >Defence Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Assistive Hardware"
+                >Assistive Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Industrial Hardware"
+                >Industrial Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Energy & Sustainability Hardware"
+                >Energy & Sustainability Hardware
+              </a>
+              <a href="#" class="filter-item" data-futurescope="Health Hardware"
+                >Health Hardware
+              </a>
+              <a
+                href="#"
+                class="filter-item"
+                data-futurescope="Climate Hardware"
+                >Climate Hardware
+              </a>
             </div>
-            <div class="dropdown-group">
-              <h5>Corporate OI</h5>
-              <a href="#" data-program="Vedanta" >Vedanta </a>
-              <a href="#" data-program="BOSCH" >BOSCH </a>
+          </div>
+          <div class="dropdown">
+            <button id="dropdownButton2">
+              Stages
+              <img
+                style="height: 8px; object-fit: contain"
+                src="assets/Resources/options/Polygon 17.png"
+                alt=""
+              />
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu2">
+              <a href="#" class="filter-item" data-stage="Growth Stage"
+                >Growth Stage
+              </a>
+              <a href="#" class="filter-item" data-stage="Product Stage"
+                >Product Stage
+              </a>
+              <a href="#" class="filter-item" data-stage="Market Stage"
+                >Market Stage
+              </a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <button id="dropdownButton3">
+              Programs
+              <img
+                style="height: 8px; object-fit: contain"
+                src="assets/Resources/options/Polygon 17.png"
+                alt=""
+              />
+            </button>
+            <div class="dropdown-menu" id="dropdownMenu3">
+              <div class="dropdown-group">
+                <h5>Government OI</h5>
+                <a href="#" class="filter-item" data-program="iDEX">iDEX </a>
+                <a href="#" class="filter-item" data-program="CiX">CiX </a>
+              </div>
+              <div class="dropdown-group">
+                <h5>Corporate OI</h5>
+                <a href="#" class="filter-item" data-program="Vedanta"
+                  >Vedanta
+                </a>
+                <a href="#" class="filter-item" data-program="BOSCH">BOSCH </a>
+              </div>
             </div>
           </div>
         </div>
+
+        <button id="clearFiltersBtn" class="filter-btn">
+          X Clear All Filters
+        </button>
       </div>
       <hr />
-      <div class="data-container position-relative ">
-        <div id="loader" class="loader hidden ">
+      <div class="data-container position-relative">
+        <div id="loader" class="loader hidden">
           <div class="spinner"></div>
         </div>
         <div id="startupsList" class="data-wrapper row gx-0 gy-4"></div>
@@ -312,46 +371,55 @@
     </section>
 
     <div class="modal" id="modal">
-      
       <div class="modal-content">
         <div class="close-btn-container">
           <span class="close" id="closeModal">&times;</span>
         </div>
 
         <div class="modal-head">
-          <img src="" id="startupLogo"></img>
-          <div class="modal-head-right ">
-            <h4 id="startupName" class="text-end text-uppercase " style="font-size: 24px; line-height: 24px;"   ></h4>
+          <img src="" id="startupLogo" />
+          <div class="modal-head-right">
+            <h4
+              id="startupName"
+              class="text-end text-uppercase"
+              style="font-size: 24px; line-height: 24px"
+            ></h4>
             <a id="websiteUrl" href="" target="_blank">
-              <img  src="assets/forge_fund4/icons/Image 23.png" alt="">
+              <img src="assets/forge_fund4/icons/Image 23.png" alt="" />
             </a>
           </div>
         </div>
 
         <div class="modal-body">
           <div class="left-column">
-            <div class="box text-uppercase gap-2 ">
+            <div class="box text-uppercase gap-2">
               <div>
-
-                <p style="line-height: 16px;" class="m-0 fw-bold text-uppercase " id="hardwareTech"></p>
-                <span>Hardware Tech</span> 
+                <p
+                  style="line-height: 16px"
+                  class="m-0 fw-bold text-uppercase"
+                  id="hardwareTech"
+                ></p>
+                <span>Hardware Tech</span>
               </div>
               <div>
-
-                <p style="line-height: 16px;" class="m-0 fw-bold text-uppercase " id="hardwareInnovations"></p>
-                <span>Hardware Innovations</span> 
+                <p
+                  style="line-height: 16px"
+                  class="m-0 fw-bold text-uppercase"
+                  id="hardwareInnovations"
+                ></p>
+                <span>Hardware Innovations</span>
               </div>
             </div>
             <div class="box" id="metricFeatures"></div>
           </div>
-          
+
           <div class="right-column">
             <div class="box">
               <div>
                 <h5 class="text-uppercase fw-bold" style="color: #df6437">
                   key investors
                 </h5>
-                <ul id="keyInvestors" class="row " ></ul>
+                <ul id="keyInvestors" class="row"></ul>
               </div>
               <hr style="border-width: 1.5px" />
               <div>
@@ -362,7 +430,10 @@
               </div>
             </div>
             <div class="box">
-               <h5 style="font-size: 18px;color: #df6437" class="text-uppercase fw-bold">
+              <h5
+                style="font-size: 18px; color: #df6437"
+                class="text-uppercase fw-bold"
+              >
                 What is <span id="startupName2"></span> ?
               </h5>
               <p class="m-0" id="about"></p>

@@ -474,6 +474,21 @@ nav li a .nav-opacity {
   border: 1px solid black;
 }
 
+.filter-btn {
+  /* padding: 10px 20px; */
+  cursor: pointer;
+  color: #696969;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  /* border: 1px solid black; */
+}
+
+.filter-item.active {
+  background-color: #df6438;
+  color: white;
+}
+
 /* data container */
 .data-container {
   min-height: 300px;
@@ -487,6 +502,10 @@ nav li a .nav-opacity {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.data-header {
+  font-weight: 600;
 }
 
 .data-img {
