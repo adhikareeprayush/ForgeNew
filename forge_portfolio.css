@@ -475,13 +475,11 @@ nav li a .nav-opacity {
 }
 
 .filter-btn {
-  /* padding: 10px 20px; */
   cursor: pointer;
   color: #696969;
   border: none;
   border-radius: 10px;
   background-color: transparent;
-  /* border: 1px solid black; */
 }
 
 .filter-item.active {
