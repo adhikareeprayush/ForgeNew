@@ -153,7 +153,7 @@
               />
             </div>
             <!-- Description -->
-            <div class="hero-text-top col-12 col-md-6 col-lg-7 text-uppercase">
+            <div class="hero-text-top col-12 col-md-6 text-uppercase">
               <h4
                 class="text-white text-center text-md-start"
                 style="color: #666; font-weight: 600"
@@ -529,7 +529,10 @@
 
     <!-- cardslide section -->
     <div id="forges" class="nav_group hero-slider w-100 position-relative">
-      <div id="swiper-section" class="position-relative z-0 swiper swiper-container-hero">
+      <div
+        id="swiper-section"
+        class="position-relative z-0 swiper swiper-container-hero"
+      >
         <div class="swiper-wrapper">
           <div
             class="swiper-slide w-100 h-100"
@@ -1121,8 +1124,8 @@
           </div>
           <div class="mt-3 d-flex flex-column gap-5">
             <div>
-              <h5 class="partners-header">Government of India</h5>
-              <div class="swiper industry-swiper">
+              <div class="swiper industry-swiper2">
+                <h5 class="partners-header">Government of India</h5>
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
                     <img
@@ -1854,6 +1857,30 @@
           spaceBetween: 20, // Space between logos
           loop: true, // Enable infinite loop
           grabCursor: true,
+          autoplay: {
+            delay: 3000, // Autoplay each slide for 3 seconds
+            disableOnInteraction: false, // Don't stop autoplay after user interaction
+          },
+          pagination: {
+            el: ".industry-swiper2 .swiper-pagination", // Target the pagination container specifically for this slider
+            clickable: true, // Allow users to click on dots
+            dynamicBullets: true, // Use sleek dynamic bullets
+          },
+          breakpoints: {
+            640: { slidesPerView: 2 }, // On small screens, show 2 slides
+            768: { slidesPerView: 3 }, // On tablets, show 3 slides
+            1024: { slidesPerView: 4 }, // On desktops, show 4 slides
+          },
+        });
+      });
+      $(document).ready(function () {
+        const industrySwiper = new Swiper(".industry-swiper2", {
+          // Target unique class
+          slidesPerView: 1, // Number of logos visible at once
+          spaceBetween: 20, // Space between logos
+          loop: true, // Enable infinite loop
+          grabCursor: true,
+
           autoplay: {
             delay: 3000, // Autoplay each slide for 3 seconds
             disableOnInteraction: false, // Don't stop autoplay after user interaction
