@@ -5,6 +5,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif !important; /* The universal selector will apply this globally */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html,
@@ -67,15 +69,72 @@ nav li a .nav-opacity {
   text-align: center;
   position: relative;
 }
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
+}
+
+.hero-text-top h4 {
+  font-size: 44px;
+  line-height: 46px;
+}
+
+.phygital-img {
+  width: 500px;
+  object-fit: contain;
+}
+@media (max-width: 1200px) {
+  .hero-text-top h4 {
+    font-size: 34px;
+    line-height: 38px;
+  }
+  .phygital-img {
+    width: 400px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-text-top h4 {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  .phygital-img {
+    width: 400px;
+    object-fit: contain;
+  }
+}
+
+.hero-slider {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
 
 .swiper-container-hero {
   width: 100vw;
-  height: 100vh;
+  height: 60vh;
 }
+/* 
+.swiper-container-hero2 {
+  width: 100vw;
+  height: 60vh;
+} */
 
 .swiper-container-hero .swiper-slide {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   background-size: cover;
@@ -170,7 +229,7 @@ nav li a .nav-opacity {
 }
 
 .about-header {
-  font-weight: 900;
+  font-weight: 500;
   font-size: 18px;
 }
 
@@ -186,7 +245,6 @@ nav li a .nav-opacity {
 
 @media (max-width: 768px) {
   .about-header {
-    font-weight: 900;
     font-size: 18px;
   }
   .about-desc {
@@ -195,7 +253,6 @@ nav li a .nav-opacity {
 }
 @media (max-width: 1200px) {
   .about-header {
-    font-weight: 900;
     font-size: 26px;
   }
   .about-desc {
@@ -209,7 +266,6 @@ nav li a .nav-opacity {
 
 @media (max-width: 1600px) {
   .about-header {
-    font-weight: 900;
     font-size: 28px;
   }
   .about-desc {
@@ -223,8 +279,8 @@ nav li a .nav-opacity {
 
 @media (min-width: 1600px) {
   .about-header {
-    font-weight: 900;
-    font-size: 30px;
+    font-size: 34px;
+    line-height: 40px;
   }
   .about-desc {
     font-size: 28px;
@@ -487,9 +543,14 @@ nav li a .nav-opacity {
 
 /* tabs-container */
 .banner-head {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 700;
   color: #df6437;
+}
+@media (max-width: 768px) {
+  .banner-head {
+    font-size: 32px;
+  }
 }
 
 .overlay-red {
@@ -567,9 +628,14 @@ nav li a .nav-opacity {
 
 /* strategy&framework */
 .strategy-head {
-  font-size: 32px;
+  font-size: 40px;
   font-weight: 700;
   color: #df6437;
+}
+@media (max-width: 768px) {
+  .strategy-head {
+    font-size: 32px;
+  }
 }
 
 .strategy-row-1 {
@@ -774,7 +840,7 @@ nav li a .nav-opacity {
 
 .swiper-button-next {
   position: absolute;
-  right: 10px;
+  right: 30px;
   z-index: 20;
   background: url("assets/Fast/right-arrow.png") no-repeat center center;
   background-size: contain;
@@ -785,7 +851,7 @@ nav li a .nav-opacity {
 
 .swiper-button-prev {
   position: absolute;
-  left: 10px;
+  left: 30px;
   background: url("assets/Fast/left-arrow.png") no-repeat center center;
   background-size: contain;
   width: 20px;
@@ -798,17 +864,26 @@ nav li a .nav-opacity {
   object-fit: contain;
 }
 
+.partner-line {
+  font-size: 30px;
+}
+
 .partners-header {
   display: flex;
   justify-content: center;
   color: #898989;
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 26px;
 }
 
-.partners span {
-  font-size: 22px;
-  color: black;
-  font-family: "DIN", sans-serif;
-  font-weight: bold;
+@media (max-width: 768px) {
+  .partner-line {
+    font-size: 24px;
+  }
+  .partners-header {
+    font-size: 20px;
+  }
 }
 
 .partners .hr {
