@@ -1008,7 +1008,7 @@ nav li a .nav-opacity {
     font-size: 40px;
   }
 }
-@keyframes fadeInOut {
+/* @keyframes fadeInOut {
   0%,
   100% {
     opacity: 0;
@@ -1018,6 +1018,21 @@ nav li a .nav-opacity {
   75% {
     opacity: 1;
     transform: translateY(0);
+  }
+} */
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
   }
 }
 
