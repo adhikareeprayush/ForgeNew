@@ -1064,7 +1064,6 @@ nav li a .nav-opacity {
   background-color: #e06436;
 }
 
-/* Show dropdown on hover */
 .dropdown:hover .dropdown-content {
   display: flex;
   flex-direction: column;
