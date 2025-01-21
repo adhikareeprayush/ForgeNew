@@ -872,8 +872,8 @@ nav li a .nav-opacity {
   display: flex;
   justify-content: center;
   color: #898989;
-  font-weight: 700;
-  font-size: 26px;
+  font-weight: 600;
+  font-size: 24px;
   margin-bottom: 26px;
 }
 
@@ -974,4 +974,5 @@ nav li a .nav-opacity {
 
 .dynamic-text {
   font-weight: 700;
+  font-size: 50px;
 }
