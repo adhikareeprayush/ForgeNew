@@ -1033,14 +1033,12 @@ nav li a .nav-opacity {
 .dropdown-content {
   background-color: black;
   padding: 0px;
-  padding-top: 20px;
   width: 220px;
   overflow: hidden;
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  border: 1px solid #ddd;
   z-index: 1;
 }
 
