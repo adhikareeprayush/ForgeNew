@@ -18,4 +18,4 @@ function changeWord() {
 
 changeWord();
 
-setInterval(changeWord, 2000);
+setInterval(changeWord, 4000);

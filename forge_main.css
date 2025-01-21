@@ -985,7 +985,7 @@ nav li a .nav-opacity {
   font-size: 50px;
   display: inline-block;
   position: absolute;
-  animation: fadeInOut 2s infinite;
+  animation: fadeInOut 4s infinite;
   opacity: 0;
 }
 
@@ -1026,7 +1026,15 @@ nav li a .nav-opacity {
     opacity: 0;
     transform: translateY(100%);
   }
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
   50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85% {
     opacity: 1;
     transform: translateY(0);
   }
