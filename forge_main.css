@@ -971,3 +971,7 @@ nav li a .nav-opacity {
   color: #f05623;
   margin-bottom: 40px;
 }
+
+.dynamic-text {
+  font-weight: 700;
+}
