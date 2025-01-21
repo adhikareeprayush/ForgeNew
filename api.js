@@ -91,21 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderStartups(filtered);
   };
 
-  const clearFilters = () => {
-    selectedFilters = {
-      futurescope: null,
-      stage: null,
-      program: null,
-    };
-    document.querySelectorAll(".filter-item").forEach((item) => {
-      item.classList.remove("active");
-    });
-    filterStartups();
-  };
-  document.getElementById("clearFiltersBtn").addEventListener("click", () => {
-    clearFilters();
-  });
-
   // Event listeners for dropdown menu items
   // document.querySelectorAll("#dropdownMenu1 a").forEach((item) => {
   //   item.addEventListener("click", (e) => {
@@ -206,6 +191,62 @@ document.addEventListener("DOMContentLoaded", () => {
       const startupId = card.dataset.id;
       showStartupDetails(startupId);
     }
+  });
+
+  const handleDropdownSelection = (dropdownId, defaultTitleId) => {
+    const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
+    const dropdownTitle = document.getElementById(
+      `dropdown-title${dropdownId}`
+    );
+    const defaultTitle = dropdownTitle.textContent.trim();
+
+    dropdownMenu.addEventListener("click", (event) => {
+      const target = event.target;
+
+      if (dropdownTitle.textContent.trim() === target.textContent.trim()) {
+        dropdownTitle.textContent = defaultTitle;
+      } else if (target.classList.contains("filter-item")) {
+        dropdownTitle.textContent = target.textContent;
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !dropdownMenu.contains(event.target) &&
+        !dropdownTitle.contains(event.target)
+      ) {
+        dropdownMenu.style.display = "none";
+      }
+    });
+  };
+
+  const clearDropDownSelection = () => {
+    const dropdowns = document.querySelectorAll(".dropdown");
+    dropdowns.forEach((dropdown, index) => {
+      const dropdownTitle = dropdown.querySelector(`.dropdown-title`);
+      const defaultText = dropdownTitle.getAttribute("data-default-text");
+      dropdownTitle.textContent = defaultText;
+    });
+  };
+
+  handleDropdownSelection(1, "dropdown-title1");
+  handleDropdownSelection(2, "dropdown-title2");
+  handleDropdownSelection(3, "dropdown-title3");
+
+  const clearFilters = () => {
+    selectedFilters = {
+      futurescope: null,
+      stage: null,
+      program: null,
+    };
+    document.querySelectorAll(".filter-item").forEach((item) => {
+      item.classList.remove("active");
+    });
+    filterStartups();
+  };
+  document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+    clearFilters();
+    clearDropDownSelection();
   });
 });
 
@@ -312,3 +353,45 @@ document.getElementById("modal").addEventListener("click", (event) => {
     document.getElementById("modal").style.display = "none";
   }
 });
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   // Function to handle dropdown selection
+//   const handleDropdownSelection = (dropdownId, defaultTitleId) => {
+//     const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
+//     const dropdownTitle = document.getElementById(
+//       `dropdown-title${dropdownId}`
+//     );
+//     const defaultTitle = dropdownTitle.textContent.trim(); // Store the default title
+//     console.log(defaultTitle);
+
+//     // Add click event listener for all filter items in the dropdown
+//     dropdownMenu.addEventListener("click", (event) => {
+//       const target = event.target;
+
+//       if (target.classList.contains("filter-item")) {
+//         // Set the dropdown title to the selected item's text
+//         dropdownTitle.textContent = target.textContent;
+
+//         // Deselect (reset) if the same filter is clicked again
+//         if (dropdownTitle.textContent === defaultTitle) {
+//           dropdownTitle.textContent = defaultTitle;
+//         }
+//       }
+//     });
+
+//     // Handle clicking outside the dropdown to close it (optional)
+//     document.addEventListener("click", (event) => {
+//       if (
+//         !dropdownMenu.contains(event.target) &&
+//         !dropdownTitle.contains(event.target)
+//       ) {
+//         dropdownMenu.style.display = "none";
+//       }
+//     });
+//   };
+
+//   // Attach functionality to each dropdown
+//   handleDropdownSelection(1, "dropdown-title1");
+//   handleDropdownSelection(2, "dropdown-title2");
+//   handleDropdownSelection(3, "dropdown-title3");
+// });
