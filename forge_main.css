@@ -1039,6 +1039,7 @@ nav li a .nav-opacity {
   position: absolute;
   top: 100%;
   left: 0;
+  border: 1px solid #ddd;
   z-index: 1;
 }
 
