@@ -12,6 +12,35 @@ function showTab(tabId) {
     .classList.add("active");
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  function toggleDropdown(buttonId, menuId) {
+    const button = document.getElementById(buttonId);
+    const menu = document.getElementById(menuId);
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation(); // Prevent click from bubbling up
+      closeAllDropdowns(); // Close all other dropdowns
+      menu.style.display = menu.style.display === "block" ? "none" : "block"; // Toggle the current dropdown
+    });
+  }
+
+  // Close all dropdowns
+  function closeAllDropdowns() {
+    const dropdowns = document.querySelectorAll(".dropdown-menu");
+    dropdowns.forEach((menu) => {
+      menu.style.display = "none";
+    });
+  }
+
+  // Initialize dropdowns
+  toggleDropdown("dropdownButton1", "dropdownMenu1");
+  toggleDropdown("dropdownButton2", "dropdownMenu2");
+  toggleDropdown("dropdownButton3", "dropdownMenu3");
+
+  // Close all dropdowns when clicking outside
+  document.addEventListener("click", closeAllDropdowns);
+});
+
 // card-slide
 $(document).ready(function () {
   const cardSwiper = new Swiper(".card-swiper", {
