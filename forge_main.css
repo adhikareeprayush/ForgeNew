@@ -1082,3 +1082,33 @@ nav li a .nav-opacity {
   display: flex;
   flex-direction: column;
 }
+
+.center-logo-container {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+}
+.center-logo {
+  width: 240px;
+}
+
+@media (max-width: 2000px) {
+  .center-logo {
+    width: 200px;
+  }
+}
+@media (max-width: 1200px) {
+  .center-logo {
+    width: 160px;
+  }
+}
+@media (max-width: 768px) {
+  .center-logo {
+    width: 120px;
+  }
+}
+@media (max-width: 500px) {
+  .center-logo {
+    width: 80px;
+  }
+}
