@@ -354,6 +354,11 @@ nav li a .nav-opacity {
   flex-direction: column;
   gap: 20px;
 }
+@media (max-width: 500px) {
+  .partners span {
+    font-size: 20px;
+  }
+}
 
 .partners-slide .swiper-wrapper {
   margin-bottom: 50px !important ;
@@ -1486,6 +1491,10 @@ ul {
   }
   .card-stat-item {
     flex: 1 1;
+    align-items: center;
+  }
+  .card-stat-item .card-p {
+    text-align: center;
   }
 }
 
