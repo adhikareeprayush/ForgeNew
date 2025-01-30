@@ -244,10 +244,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     filterStartups();
   };
-  document.getElementById("clearFiltersBtn").addEventListener("click", () => {
-    clearFilters();
-    clearDropDownSelection();
-  });
+  // document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+  //   clearFilters();
+  //   clearDropDownSelection();
+  // });
+  const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener("click", () => {
+      clearFilters();
+      clearDropDownSelection();
+    });
+  }
 });
 
 function showStartupDetails(startupId) {
@@ -264,79 +271,117 @@ function showStartupDetails(startupId) {
     })
     .then((data) => {
       const startup = data.startup;
+      console.log(startup);
 
       // Populate modal content
-      document.getElementById("startupLogo").src = startup?.logo?.url;
-      document.getElementById("websiteUrl").href = startup?.websiteUrl;
-      document.getElementById("startupName").textContent = startup?.name;
-      document.getElementById("startupName2").textContent = startup?.name;
-      document.getElementById("websiteUrl").href = startup.websiteUrl || "#";
-      document.getElementById("hardwareTech").textContent =
-        startup.hardwareTech || "";
-      document.getElementById("hardwareInnovations").textContent =
-        startup.hardwareInnovations || "";
-      document.getElementById("about").textContent = startup.about || "";
+      const startupLogo = document.getElementById("startupLogo");
+      if (startupLogo) startupLogo.src = startup?.logo?.url;
+
+      const websiteUrl = document.getElementById("websiteUrl");
+      if (websiteUrl) websiteUrl.href = startup?.websiteUrl || "#";
+
+      const startupName = document.getElementById("startupName");
+      if (startupName) startupName.textContent = startup?.name;
+
+      const startupName2 = document.getElementById("startupName2");
+      if (startupName2) startupName2.textContent = startup?.name;
+
+      const hardwareTech = document.getElementById("hardwareTech");
+      if (hardwareTech) hardwareTech.textContent = startup.hardwareTech || "";
+
+      const hardwareInnovations = document.getElementById(
+        "hardwareInnovations"
+      );
+      if (hardwareInnovations)
+        hardwareInnovations.textContent = startup.hardwareInnovations || "";
+
+      const about = document.getElementById("about");
+      if (about) about.textContent = startup.about || "";
 
       // Key Investors
       const keyInvestorsList = document.getElementById("keyInvestors");
-      keyInvestorsList.innerHTML = startup.keyInvestors.length
-        ? startup.keyInvestors
-            .map(
-              (investor) => `<img
-              class="data-img-investor col-3 "
-              src="${investor?.url}"
-              alt="${"Investor logo"}"
-            />`
-            )
-            .join("")
-        : "<li>No key investors listed.</li>";
+      if (keyInvestorsList) {
+        keyInvestorsList.innerHTML = startup.keyInvestors.length
+          ? startup.keyInvestors
+              .map(
+                (investor) => `<img
+                class="data-img-investor col-3 "
+                src="${investor?.url}"
+                alt="${"Investor logo"}"
+              />`
+              )
+              .join("")
+          : "<li>No key investors listed.</li>";
+      }
 
       // Top Customers
       const customersList = document.getElementById("customersDetails");
-      customersList.innerHTML = startup.CustomersDetails.length
-        ? startup.CustomersDetails.map(
-            (customer) => `<img
-              class="data-img-investor col-3"
-              src="${customer?.url}"
-              alt="${"Customer logo"}"
-            />`
-          ).join("")
-        : "<li>No top customers listed.</li>";
+      if (customersList) {
+        customersList.innerHTML = startup.CustomersDetails.length
+          ? startup.CustomersDetails.map(
+              (customer) => `<img
+                class="data-img-investor col-3"
+                src="${customer?.url}"
+                alt="${"Customer logo"}"
+              />`
+            ).join("")
+          : "<li>No top customers listed.</li>";
+      }
 
       // Metric Features
       const metricFeaturesContainer = document.getElementById("metricFeatures");
-      metricFeaturesContainer.innerHTML = startup.metricFeatures
-        .map(
-          (feature) => `
-          <div class="row ">
-          <div class="col-5 d-flex justify-content-center " >
-          <img class="data-img" src="${feature?.icon?.url}" alt="${
-            feature.heading || "Feature"
-          }" />
-          </div>
-          <div class="col-6">
-          <p class="m-0 feature-heading ">${feature.heading}</p>
-          <p class="m-0 feature-metric ">${feature.metric}</p>
-          </div>
-          </div>
-          `
-        )
-        .join("");
+      if (metricFeaturesContainer) {
+        metricFeaturesContainer.innerHTML = startup.metricFeatures
+          .map(
+            (feature) => `
+            <div class="row ">
+            <div class="col-5 d-flex justify-content-center " >
+            <img class="data-img" src="${feature?.icon?.url}" alt="${
+              feature.heading || "Feature"
+            }" />
+            </div>
+            <div class="col-6">
+            <p class="m-0 feature-heading ">${feature.heading}</p>
+            <p class="m-0 feature-metric ">${feature.metric}</p>
+            </div>
+            </div>
+            `
+          )
+          .join("");
+      }
 
-      // Category Details
-      // const categoryContainer = document.getElementById("category");
-      // categoryContainer.innerHTML = startup.category
-      //   .map(
-      //     (cat) => `
-      //     <div>
-      //       <h6>Future Scope: ${cat.futureScope}</h6>
-      //       <p>Stage: ${cat.stages}</p>
-      //       <p>Programmes: ${cat.programmes}</p>
-      //     </div>`
-      //   )
-      //   .join("");
+      // Grants and Investors
+      const grantsContainer = document.getElementById("grants");
+      const programmesContainer = document.getElementById("programmes");
+      const grantsInvestorsContainer =
+        document.getElementById("GrantsInvestors");
 
-      modal.style.display = "flex"; // Show modal
+      if (grantsContainer && programmesContainer && grantsInvestorsContainer) {
+        const grantsContent = startup.grants.length
+          ? startup.grants
+              .map((grant) => `<p class="m-0 my-1">${grant}</p>`)
+              .join("")
+          : "<p>No grants listed.</p>";
+
+        const programmesContent = startup.category.programmes.length
+          ? startup.category.programmes
+              .map((investor) => `<p class="m-0 my-1">${investor}</p>`)
+              .join("")
+          : "<p>No investors listed.</p>";
+
+        grantsContainer.innerHTML = grantsContent;
+        programmesContainer.innerHTML = programmesContent;
+
+        if (!startup.grants.length && !startup.category.programmes.length) {
+          grantsInvestorsContainer.style.display = "none";
+        } else {
+          grantsInvestorsContainer.style.display = "block";
+        }
+      }
+
+      if (modal) {
+        modal.style.display = "flex"; // Show modal
+      }
     })
     .catch((error) => {
       console.error("Error fetching startup details:", error);
