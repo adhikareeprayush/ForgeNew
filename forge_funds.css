@@ -203,6 +203,7 @@ nav li a .nav-opacity {
     align-items: center;
   }
   .banner-head h3 {
+    text-align: center;
     width: 100%;
   }
   .banner-desc p {
