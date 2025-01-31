@@ -70,11 +70,12 @@ nav li a .nav-opacity {
 }
 .swiper-slide {
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   background-size: cover;
   background-position: center;
+  margin-bottom: 40px;
 }
 
 .btn-orange {
@@ -609,6 +610,18 @@ ul {
     center/cover;
 }
 
+.idex-img {
+  width: auto;
+  height: 450px;
+}
+
+@media (max-width: 500px) {
+  .idex-img {
+    margin-top: 10px;
+    height: fit-content;
+  }
+}
+
 .card-overlay {
   position: absolute;
   top: 0;
@@ -687,17 +700,24 @@ ul {
   gap: 80px;
 }
 
+@media (max-width: 500px) {
+  .card-stat-item-wrapper {
+    gap: 20px;
+  }
+}
+
 .card-stat-item {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
   flex-direction: column;
   align-items: left;
-  margin-bottom: 10px;
 }
 
 .card-stat-item .card-p {
   text-align: left;
+  max-width: 120px;
+  margin: 0;
 }
 
 .card-stat-item img {
@@ -731,6 +751,7 @@ ul {
     flex-direction: column;
   }
   .card-stat-item {
+    align-items: center;
     flex: 1;
   }
 }
@@ -856,7 +877,7 @@ ul {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
   }
   .card-p {
     text-align: center !important;
@@ -1148,6 +1169,29 @@ ul {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+}
+
+.front {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.front h3 {
+  text-align: left;
+  margin: 0;
+}
+
+@media (max-width: 500px) {
+  .flipping-card {
+    height: 240px !important;
+  }
+  .front {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .front h3 {
+    text-align: center;
+  }
 }
 
 @media (min-width: 2000px) {
