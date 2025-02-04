@@ -141,6 +141,13 @@ nav li a .nav-opacity {
   background-position: center;
 }
 
+@media (max-width: 500px) {
+  .swiper-container-hero .swiper-slide a {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .hero-title {
   font-size: 26px;
 }
@@ -857,6 +864,15 @@ nav li a .nav-opacity {
   width: 20px;
   height: 20px;
   color: transparent;
+}
+
+@media (max-width: 500px) {
+  .swiper-button-next {
+    right: 2px;
+  }
+  .swiper-button-prev {
+    left: 2px;
+  }
 }
 
 /* Partners swiper */
