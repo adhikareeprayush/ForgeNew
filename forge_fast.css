@@ -829,6 +829,22 @@ nav li a .nav-opacity {
   object-fit: contain;
 }
 
+@media (max-width: 500px) {
+  .vedanta-container .card-stat-item {
+    padding: 20px 10px;
+    width: 220px;
+  }
+
+  .card-airbus .card-stat-item {
+    padding: 20px 10px;
+    width: 220px;
+  }
+  .card-bosch .card-stat-item {
+    padding: 20px 10px;
+    width: 220px;
+  }
+}
+
 @media (max-width: 670px) {
   .card-stat-item-container {
     display: flex;
