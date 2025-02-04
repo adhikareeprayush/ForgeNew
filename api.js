@@ -222,10 +222,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const clearDropDownSelection = () => {
     const dropdowns = document.querySelectorAll(".dropdown");
-    dropdowns.forEach((dropdown, index) => {
+    dropdowns.forEach((dropdown) => {
       const dropdownTitle = dropdown.querySelector(`.dropdown-title`);
-      const defaultText = dropdownTitle.getAttribute("data-default-text");
-      dropdownTitle.textContent = defaultText;
+      if (dropdownTitle) {
+        const defaultText = dropdownTitle.getAttribute("data-default-text");
+        dropdownTitle.textContent = defaultText;
+      }
     });
   };
 
