@@ -990,6 +990,26 @@ nav li a .nav-opacity {
   }
 }
 
+@media (max-width: 768px) {
+  .polygon-container {
+    display: flex;
+    align-items: center;
+    min-height: 700px !important;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .polygon-start,
+  .polygon-end,
+  .polygon-between {
+    min-width: 100% !important;
+    /* flex-direction: column; */
+    padding: 40px !important;
+  }
+  .polygon-container .polygon {
+    min-width: 100%;
+  }
+}
+
 .s-card-container {
   width: 60%;
   display: flex;
