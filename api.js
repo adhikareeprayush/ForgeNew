@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     futurescope: null,
     stage: null,
     program: null,
+    grant: null,
   };
+
   const showLoader = () => loader.classList.remove("hidden");
 
   // Hide loader
@@ -33,11 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
         hideLoader();
       });
   };
+
   fetchStartups();
-  console.log(startups);
   // Function to render startups
   const renderStartups = (filteredStartups) => {
-    console.log(filteredStartups);
     const startupsList = document.getElementById("startupsList");
     const activeStartups = filteredStartups.filter(
       (startup) => startup.status == "Active"
@@ -66,8 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to filter startups
   const filterStartups = () => {
     let filtered = startups;
-    console.log(filtered);
-    console.log(selectedFilters.futurescope);
 
     if (selectedFilters.futurescope) {
       filtered = filtered.filter((startup) => {
@@ -86,16 +85,77 @@ document.addEventListener("DOMContentLoaded", () => {
         return startup?.category?.programmes?.includes(selectedFilters.program);
       });
     }
-    console.log(filtered);
+    if (selectedFilters.grant) {
+      filtered = filtered.filter((startup) => {
+        return startup?.grants?.includes(selectedFilters.grant);
+      });
+    }
 
     renderStartups(filtered);
   };
 
-  // Event listeners for dropdown menu items
+  const fetchDropdownTitles = () => {
+    const programsGrantsAPI =
+      "https://forgebackend.vercel.app/api/v1/startup/programs-grants";
+    fetch(programsGrantsAPI)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const programmesDropdown = document.getElementById("dropdownMenu3");
+        const grantsDropdown = document.getElementById("dropdownMenu4");
+
+        if (programmesDropdown) {
+          programmesDropdown.innerHTML = data?.data?.programmes
+            ?.map(
+              (programme) =>
+                `<a href="#" class="filter-item" data-program="${programme}"
+                >${programme}
+              </a>`
+            )
+            .join("");
+        }
+
+        if (grantsDropdown) {
+          grantsDropdown.innerHTML = data?.data?.grants
+            ?.map(
+              (grant) =>
+                `<a href="#" class="filter-item" data-grant="${grant}"
+                >${grant}
+              </a>`
+            )
+            .join("");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching dropdown titles:", error);
+      });
+  };
+
+  fetchDropdownTitles();
+
   // document.querySelectorAll("#dropdownMenu1 a").forEach((item) => {
   //   item.addEventListener("click", (e) => {
   //     e.preventDefault();
-  //     selectedFilters.futurescope = item.dataset.futurescope;
+
+  //     // Deselect all other items in the same filter category
+  //     document.querySelectorAll("#dropdownMenu1 a").forEach((el) => {
+  //       el.classList.remove("active");
+  //     });
+
+  //     const futurescope = item.dataset.futurescope;
+
+  //     // If it's the same filter, deselect it; otherwise, select the new one
+  //     if (selectedFilters.futurescope === futurescope) {
+  //       selectedFilters.futurescope = null;
+  //     } else {
+  //       selectedFilters.futurescope = futurescope;
+  //       item.classList.add("active");
+  //     }
+
   //     filterStartups();
   //   });
   // });
@@ -103,7 +163,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // document.querySelectorAll("#dropdownMenu2 a").forEach((item) => {
   //   item.addEventListener("click", (e) => {
   //     e.preventDefault();
-  //     selectedFilters.stage = item.dataset.stage;
+
+  //     // Deselect all other items in the same filter category
+  //     document.querySelectorAll("#dropdownMenu2 a").forEach((el) => {
+  //       el.classList.remove("active");
+  //     });
+
+  //     const stage = item.dataset.stage;
+
+  //     // If it's the same filter, deselect it; otherwise, select the new one
+  //     if (selectedFilters.stage === stage) {
+  //       selectedFilters.stage = null;
+  //     } else {
+  //       selectedFilters.stage = stage;
+  //       item.classList.add("active");
+  //     }
+
   //     filterStartups();
   //   });
   // });
@@ -111,79 +186,78 @@ document.addEventListener("DOMContentLoaded", () => {
   // document.querySelectorAll("#dropdownMenu3 a").forEach((item) => {
   //   item.addEventListener("click", (e) => {
   //     e.preventDefault();
-  //     selectedFilters.program = item.dataset.program;
+
+  //     // Deselect all other items in the same filter category
+  //     document.querySelectorAll("#dropdownMenu3 a").forEach((el) => {
+  //       el.classList.remove("active");
+  //     });
+
+  //     const program = item.dataset.program;
+
+  //     // If it's the same filter, deselect it; otherwise, select the new one
+  //     if (selectedFilters.program === program) {
+  //       selectedFilters.program = null;
+  //     } else {
+  //       selectedFilters.program = program;
+  //       item.classList.add("active");
+  //     }
+
   //     filterStartups();
   //   });
   // });
 
-  document.querySelectorAll("#dropdownMenu1 a").forEach((item) => {
-    item.addEventListener("click", (e) => {
+  // document.querySelectorAll("#dropdownMenu4 a").forEach((item) => {
+  //   item.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     // Deselect all other items in the same filter category
+  //     document.querySelectorAll("#dropdownMenu4 a").forEach((el) => {
+  //       el.classList.remove("active");
+  //     });
+
+  //     const grant = item.dataset.grant;
+
+  //     // If it's the same filter, deselect it; otherwise, select the new one
+  //     if (selectedFilters.grant === grant) {
+  //       selectedFilters.grant = null;
+  //     } else {
+  //       selectedFilters.grant = grant;
+  //       item.classList.add("active");
+  //     }
+
+  //     filterStartups();
+  //   });
+  // });
+
+  function setupDropdown(selector, filterKey) {
+    document.body.addEventListener("click", (e) => {
+      const item = e.target.closest(`${selector} a`);
+      if (!item) return;
+
       e.preventDefault();
 
       // Deselect all other items in the same filter category
-      document.querySelectorAll("#dropdownMenu1 a").forEach((el) => {
+      document.querySelectorAll(`${selector} a`).forEach((el) => {
         el.classList.remove("active");
       });
 
-      const futurescope = item.dataset.futurescope;
+      const value = item.dataset[filterKey];
 
       // If it's the same filter, deselect it; otherwise, select the new one
-      if (selectedFilters.futurescope === futurescope) {
-        selectedFilters.futurescope = null;
+      if (selectedFilters[filterKey] === value) {
+        selectedFilters[filterKey] = null;
       } else {
-        selectedFilters.futurescope = futurescope;
+        selectedFilters[filterKey] = value;
         item.classList.add("active");
       }
 
       filterStartups();
     });
-  });
+  }
 
-  document.querySelectorAll("#dropdownMenu2 a").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // Deselect all other items in the same filter category
-      document.querySelectorAll("#dropdownMenu2 a").forEach((el) => {
-        el.classList.remove("active");
-      });
-
-      const stage = item.dataset.stage;
-
-      // If it's the same filter, deselect it; otherwise, select the new one
-      if (selectedFilters.stage === stage) {
-        selectedFilters.stage = null;
-      } else {
-        selectedFilters.stage = stage;
-        item.classList.add("active");
-      }
-
-      filterStartups();
-    });
-  });
-
-  document.querySelectorAll("#dropdownMenu3 a").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // Deselect all other items in the same filter category
-      document.querySelectorAll("#dropdownMenu3 a").forEach((el) => {
-        el.classList.remove("active");
-      });
-
-      const program = item.dataset.program;
-
-      // If it's the same filter, deselect it; otherwise, select the new one
-      if (selectedFilters.program === program) {
-        selectedFilters.program = null;
-      } else {
-        selectedFilters.program = program;
-        item.classList.add("active");
-      }
-
-      filterStartups();
-    });
-  });
+  setupDropdown("#dropdownMenu1", "futurescope");
+  setupDropdown("#dropdownMenu2", "stage");
+  setupDropdown("#dropdownMenu3", "program");
+  setupDropdown("#dropdownMenu4", "grant");
 
   document.getElementById("startupsList").addEventListener("click", (event) => {
     const card = event.target.closest(".data-card");
@@ -193,29 +267,129 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // const handleDropdownSelection = (dropdownId, defaultTitleId) => {
+  //   const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
+  //   const dropdownTitle = document.getElementById(`${defaultTitleId}`);
+  //   console.log(dropdownMenu);
+  //   const defaultTitle = dropdownTitle?.textContent?.trim();
+  //   dropdownMenu.addEventListener("click", (event) => {
+  //     const target = event.target;
+  //     if (dropdownTitle.textContent.trim() === target.textContent.trim()) {
+  //       dropdownTitle.textContent = defaultTitle;
+  //     } else if (target.classList.contains("filter-item")) {
+  //       dropdownTitle.textContent = target.textContent;
+  //     }
+  //   });
+
+  //   document.addEventListener("click", (event) => {
+  //     if (
+  //       !dropdownMenu.contains(event.target) &&
+  //       !dropdownTitle.contains(event.target)
+  //     ) {
+  //       dropdownMenu.style.display = "none";
+  //     } else {
+  //       dropdownMenu.style.display = "block";
+  //     }
+  //   });
+  // };
+
+  let openDropdown = null;
+
+  // const handleDropdownSelection = (dropdownId, defaultTitleId) => {
+  //   const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
+  //   const dropdownTitle = document.getElementById(defaultTitleId);
+  //   const dropdownButton = document.getElementById(
+  //     `dropdownButton${dropdownId}`
+  //   );
+  //   const defaultTitle = dropdownTitle?.dataset?.defaultText;
+  //   // Toggle menu on button click
+  //   dropdownButton.addEventListener("click", (e) => {
+  //     e.stopPropagation();
+  //     const target = e.target;
+  //     // console.log(target);
+  //     // console.log(dropdownTitle);
+  //     // console.log(dropdownButton);
+  //     // if (!dropdownButton.contains(target)) {
+  //     //   dropdownMenu.style.display = "none";
+  //     // } else {
+  //     //   console.log(dropdownMenu);
+  //     // }
+  //     dropdownMenu.style.display = "block";
+  //   });
+
+  //   // Handle item selection
+  //   dropdownMenu.addEventListener("click", (e) => {
+  //     const target = e.target;
+
+  //     if (dropdownTitle.textContent.trim() === target.textContent.trim()) {
+  //       dropdownTitle.textContent = defaultTitle;
+  //     } else if (target.classList.contains("filter-item")) {
+  //       dropdownTitle.textContent = target.textContent;
+  //     }
+  //   });
+
+  //   // Close when clicking outside
+  //   document.addEventListener("click", (event) => {
+  //     if (
+  //       !event.target.closest(".dropdown") &&
+  //       !dropdownMenu.contains(event.target) &&
+  //       !dropdownTitle.contains(event.target)
+  //     ) {
+  //       console.log(dropdownTitle);
+  //       dropdownMenu.style.display = "none";
+  //     }
+  //   });
+  // };
+
   const handleDropdownSelection = (dropdownId, defaultTitleId) => {
     const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
-    const dropdownTitle = document.getElementById(
-      `dropdown-title${dropdownId}`
+    const dropdownTitle = document.getElementById(defaultTitleId);
+    const dropdownButton = document.getElementById(
+      `dropdownButton${dropdownId}`
     );
-    const defaultTitle = dropdownTitle.textContent.trim();
+    const defaultTitle = dropdownTitle?.dataset?.defaultText;
 
-    dropdownMenu.addEventListener("click", (event) => {
-      const target = event.target;
+    // Toggle menu on button click
+    dropdownButton.addEventListener("click", (e) => {
+      e.stopPropagation();
 
+      // Close the previously open dropdown
+      if (openDropdown && openDropdown !== dropdownMenu) {
+        openDropdown.style.display = "none";
+      }
+
+      // Toggle the current dropdown
+      if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+        openDropdown = null;
+      } else {
+        dropdownMenu.style.display = "block";
+        openDropdown = dropdownMenu;
+      }
+    });
+
+    // Handle item selection
+    dropdownMenu.addEventListener("click", (e) => {
+      const target = e.target;
       if (dropdownTitle.textContent.trim() === target.textContent.trim()) {
         dropdownTitle.textContent = defaultTitle;
       } else if (target.classList.contains("filter-item")) {
         dropdownTitle.textContent = target.textContent;
       }
+      dropdownMenu.style.display = "none"; // Close dropdown after selection
+      openDropdown = null;
     });
 
+    // Close when clicking outside
     document.addEventListener("click", (event) => {
       if (
+        openDropdown &&
+        !event.target.closest(".dropdown") &&
         !dropdownMenu.contains(event.target) &&
         !dropdownTitle.contains(event.target)
       ) {
         dropdownMenu.style.display = "none";
+        openDropdown = null;
       }
     });
   };
@@ -234,6 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
   handleDropdownSelection(1, "dropdown-title1");
   handleDropdownSelection(2, "dropdown-title2");
   handleDropdownSelection(3, "dropdown-title3");
+  handleDropdownSelection(4, "dropdown-title4");
 
   const clearFilters = () => {
     selectedFilters = {
@@ -246,10 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     filterStartups();
   };
-  // document.getElementById("clearFiltersBtn").addEventListener("click", () => {
-  //   clearFilters();
-  //   clearDropDownSelection();
-  // });
+
   const clearFiltersBtn = document.getElementById("clearFiltersBtn");
   if (clearFiltersBtn) {
     clearFiltersBtn.addEventListener("click", () => {
@@ -390,7 +562,6 @@ function showStartupDetails(startupId) {
     });
 }
 
-// Modal close logic
 document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("modal").style.display = "none";
 });
@@ -400,45 +571,3 @@ document.getElementById("modal").addEventListener("click", (event) => {
     document.getElementById("modal").style.display = "none";
   }
 });
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   // Function to handle dropdown selection
-//   const handleDropdownSelection = (dropdownId, defaultTitleId) => {
-//     const dropdownMenu = document.getElementById(`dropdownMenu${dropdownId}`);
-//     const dropdownTitle = document.getElementById(
-//       `dropdown-title${dropdownId}`
-//     );
-//     const defaultTitle = dropdownTitle.textContent.trim(); // Store the default title
-//     console.log(defaultTitle);
-
-//     // Add click event listener for all filter items in the dropdown
-//     dropdownMenu.addEventListener("click", (event) => {
-//       const target = event.target;
-
-//       if (target.classList.contains("filter-item")) {
-//         // Set the dropdown title to the selected item's text
-//         dropdownTitle.textContent = target.textContent;
-
-//         // Deselect (reset) if the same filter is clicked again
-//         if (dropdownTitle.textContent === defaultTitle) {
-//           dropdownTitle.textContent = defaultTitle;
-//         }
-//       }
-//     });
-
-//     // Handle clicking outside the dropdown to close it (optional)
-//     document.addEventListener("click", (event) => {
-//       if (
-//         !dropdownMenu.contains(event.target) &&
-//         !dropdownTitle.contains(event.target)
-//       ) {
-//         dropdownMenu.style.display = "none";
-//       }
-//     });
-//   };
-
-//   // Attach functionality to each dropdown
-//   handleDropdownSelection(1, "dropdown-title1");
-//   handleDropdownSelection(2, "dropdown-title2");
-//   handleDropdownSelection(3, "dropdown-title3");
-// });

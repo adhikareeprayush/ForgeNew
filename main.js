@@ -5,14 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactButton = document.querySelector(".btn-orange");
   const closeMenu = document.querySelector(".close-menu");
   const navLogo = document.getElementById("nav-logo");
+
   document.addEventListener("scroll", () => {
     const navbar = document.querySelector("nav");
     if (window.scrollY > 80) {
-      navbar.classList.add("scrolled");
-      navLogo.classList.remove("d-none");
+      navbar?.classList.add("scrolled");
+      navLogo?.classList.remove("d-none");
     } else {
-      navbar.classList.remove("scrolled");
-      navLogo.classList.add("d-none");
+      navbar?.classList.remove("scrolled");
+      navLogo?.classList.add("d-none");
     }
   });
 
