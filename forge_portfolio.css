@@ -499,6 +499,7 @@ nav li a .nav-opacity {
 .data-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 5px;
 }
 
@@ -510,6 +511,9 @@ nav li a .nav-opacity {
   width: fit-content;
   height: 80px;
   object-fit: contain;
+}
+.data-desc {
+  text-align: center;
 }
 
 /* modal */
