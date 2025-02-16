@@ -51,6 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = page * itemsPerPage;
     return list.slice(start, end);
   };
+
+  const matchDivHeights = () => {
+    const firstDiv = document.querySelector(".filter-container"); // The first div that should adjust height
+    const secondDiv = document.querySelector(".data-container"); // The second div containing fetched data
+
+    if (firstDiv && secondDiv) {
+      firstDiv.style.height = secondDiv.clientHeight + "px";
+    }
+  };
+
   const renderStartups = (list) => {
     // const startupsList = document.getElementById("startupsList");
     // const activeStartups = filteredStartups.filter(
@@ -84,13 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
     updatePaginationControls(activeStartups);
 
-    setTimeout(() => {
-      if (firstDiv && secondDiv) {
-        firstDiv.style.height = secondDiv.clientHeight + "px";
-      }
-    }, 100);
+    setTimeout(matchDivHeights, 100);
   };
-
+  window.addEventListener("resize", matchDivHeights);
   // const updatePaginationControls = (filteredStartups) => {
   //   console.log(filteredStartups);
   //   const totalPages = Math.ceil(filteredStartups.length / itemsPerPage);
