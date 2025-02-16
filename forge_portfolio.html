@@ -657,9 +657,9 @@
     </div>
 
     <!-- options -->
-    <section style="min-height: 100vh">
-      <div class="d-flex justify-content-between gap-2">
-        <div class="d-flex flex-wrap gap-2">
+    <section style="min-height: 100vh" class="d-flex">
+      <div class="col-4 col-md-3 d-flex flex-column gap-2">
+        <div class="d-flex flex-column flex-wrap gap-2">
           <div class="dropdown">
             <button id="dropdownButton1">
               <span
@@ -669,13 +669,47 @@
               >
                 Futurescopes
               </span>
-              <img
-                style="height: 8px; object-fit: contain"
-                src="assets/Resources/options/Polygon 17.png"
-                alt=""
-              />
+              <div class="d-flex align-items-center gap-2">
+                <div
+                  id="clearFuturescope"
+                  class="clear-btn-container d-flex align-items-center"
+                >
+                  <div style="width: 24px; height: 26px">
+                    <!-- <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M16 8L8 16M8.00001 8L16 16"
+                          stroke="#000000"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </g>
+                    </svg> -->
+                    x
+                  </div>
+                  <div class="clear-btn">Clear all</div>
+                </div>
+
+                <img
+                  style="height: 8px; object-fit: contain"
+                  src="assets/Resources/options/Polygon 17.png"
+                  alt=""
+                />
+              </div>
             </button>
             <div class="dropdown-menu" id="dropdownMenu1">
+              <a href="#" class="filter-item" data-futurescope="all">All </a>
               <a
                 href="#"
                 class="filter-item"
@@ -732,13 +766,21 @@
               >
                 Stages
               </span>
-              <img
-                style="height: 8px; object-fit: contain"
-                src="assets/Resources/options/Polygon 17.png"
-                alt=""
-              />
+              <div class="d-flex align-items-center gap-2">
+                <div id="clearStage" class="d-flex align-items-center">
+                  <div style="width: 24px; height: 26px">x</div>
+                  <div class="clear-btn">Clear all</div>
+                </div>
+
+                <img
+                  style="height: 8px; object-fit: contain"
+                  src="assets/Resources/options/Polygon 17.png"
+                  alt=""
+                />
+              </div>
             </button>
             <div class="dropdown-menu" id="dropdownMenu2">
+              <a href="#" class="filter-item" data-stage="all">All </a>
               <a href="#" class="filter-item" data-stage="Growth Stage"
                 >Growth Stage
               </a>
@@ -759,11 +801,18 @@
               >
                 Programs
               </span>
-              <img
-                style="height: 8px; object-fit: contain"
-                src="assets/Resources/options/Polygon 17.png"
-                alt=""
-              />
+              <div class="d-flex align-items-center gap-2">
+                <div id="clearProgram" class="d-flex align-items-center">
+                  <div style="width: 24px; height: 26px">x</div>
+                  <div class="clear-btn">Clear all</div>
+                </div>
+
+                <img
+                  style="height: 8px; object-fit: contain"
+                  src="assets/Resources/options/Polygon 17.png"
+                  alt=""
+                />
+              </div>
             </button>
             <div class="dropdown-menu" id="dropdownMenu3"></div>
           </div>
@@ -776,11 +825,18 @@
               >
                 Grants
               </span>
-              <img
-                style="height: 8px; object-fit: contain"
-                src="assets/Resources/options/Polygon 17.png"
-                alt=""
-              />
+              <div class="d-flex align-items-center gap-2">
+                <div id="clearGrant" class="d-flex align-items-center">
+                  <div style="width: 24px; height: 26px">x</div>
+                  <div class="clear-btn">Clear all</div>
+                </div>
+
+                <img
+                  style="height: 8px; object-fit: contain"
+                  src="assets/Resources/options/Polygon 17.png"
+                  alt=""
+                />
+              </div>
             </button>
             <div class="dropdown-menu" id="dropdownMenu4"></div>
           </div>
@@ -790,12 +846,27 @@
           X Clear All Filters
         </button>
       </div>
-      <hr />
+
+      <div id="loader" class="loader hidden">
+        <div class="spinner"></div>
+      </div>
+      <!-- <hr /> -->
       <div class="data-container position-relative">
         <div id="loader" class="loader hidden">
           <div class="spinner"></div>
         </div>
-        <div id="startupsList" class="data-wrapper row gx-0 gy-4"></div>
+        <div class="d-flex flex-column">
+          <div id="startupsList" class="data-wrapper row gx-0 gy-4"></div>
+          <div id="pagination-controls" class="d-flex justify-content-center">
+            <button id="prev-button" onclick="goToPage(currentPage - 1)">
+              Previous
+            </button>
+            <span id="page-number">Page 1 of 1</span>
+            <button id="next-button" onclick="goToPage(currentPage + 1)">
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1014,7 +1085,8 @@
       });
     </script>
     <script src="main.js"></script>
-    <script src="api.js"></script>
+    <!-- <script src="api.js"></script> -->
+    <script src="dropdown.js"></script>
     <!-- <script src="observer.js"></script> -->
     <script src="forge_portfolio.js"></script>
     <script src="footer-input.js"></script>
