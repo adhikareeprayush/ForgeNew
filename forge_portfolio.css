@@ -499,15 +499,15 @@ nav li a .nav-opacity {
 
 .filter-container {
   display: flex;
-  max-height: 1000px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  max-height: 100%;
 }
 #toggle-filter {
   position: absolute;
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   #toggle-filter {
     display: block;
     z-index: 200;
@@ -521,7 +521,7 @@ nav li a .nav-opacity {
   }
   #filter-menu {
     position: absolute;
-    transform: translateX(-400px);
+    transform: translateX(-450px);
     transition: transform 0.3s ease-in-out;
     background-color: white;
   }
@@ -550,7 +550,7 @@ nav li a .nav-opacity {
 
 .data-container {
   min-height: 300px;
-  height: fit-content;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: start;

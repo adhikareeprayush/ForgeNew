@@ -56,9 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // const activeStartups = filteredStartups.filter(
     //   (startup) => startup.status == "Active"
     // );
+    const secondDiv = document.querySelector(".data-container");
     const startupsList = document.getElementById("startupsList");
-    const activeStartups = list.filter((startup) => startup.status == "Active");
+    const firstDiv = document.querySelector(".filter-container");
 
+    const activeStartups = list.filter((startup) => startup.status == "Active");
     const startupsToShow = getStartupsForPage(currentPage, activeStartups);
 
     startupsList.innerHTML = startupsToShow
@@ -81,6 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
       )
       .join("");
     updatePaginationControls(activeStartups);
+
+    setTimeout(() => {
+      if (firstDiv && secondDiv) {
+        firstDiv.style.height = secondDiv.clientHeight + "px";
+      }
+    }, 100);
   };
 
   // const updatePaginationControls = (filteredStartups) => {
