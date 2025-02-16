@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     grant: null,
   };
   let currentPage = 1;
-  let itemsPerPage = 10;
-  const totalPages = 1;
+  let itemsPerPage = 12;
+  let totalPages = 1;
   let filteredStartups = [];
 
   const showLoader = () => loader.classList.remove("hidden");
@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then((data) => {
         startups = data.startups; // Assuming the response has a `startups` array
-        renderStartups(startups);
+        totalPages = Math.ceil(startups.length / itemsPerPage); // Update here
+        initPagination(startups);
+        // renderStartups(startups);
         hideLoader();
       })
       .catch((error) => {
@@ -44,18 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to render startups
 
-
-  const getStartupsForPage = (page) => {
+  const getStartupsForPage = (page, list) => {
     const start = (page - 1) * itemsPerPage;
     const end = page * itemsPerPage;
-    return startups.slice(start, end);
+    return list.slice(start, end);
   };
-  const renderStartups = (filteredStartups) => {
+  const renderStartups = (list) => {
+    // const startupsList = document.getElementById("startupsList");
+    // const activeStartups = filteredStartups.filter(
+    //   (startup) => startup.status == "Active"
+    // );
     const startupsList = document.getElementById("startupsList");
-    const activeStartups = filteredStartups.filter(
-      (startup) => startup.status == "Active"
-    );
-    startupsList.innerHTML = activeStartups
+    const activeStartups = list.filter((startup) => startup.status == "Active");
+
+    const startupsToShow = getStartupsForPage(currentPage, activeStartups);
+
+    startupsList.innerHTML = startupsToShow
       .map(
         (startup) => `
             <div data-id="${startup._id}" onclick="showStartupDetails(${
@@ -74,35 +80,199 @@ document.addEventListener("DOMContentLoaded", () => {
           `
       )
       .join("");
-    console.log(activeStartups);
     updatePaginationControls(activeStartups);
   };
+
+  // const updatePaginationControls = (filteredStartups) => {
+  //   console.log(filteredStartups);
+  //   const totalPages = Math.ceil(filteredStartups.length / itemsPerPage);
+  //   const paginationContainer = document.getElementById("pagination-container");
+  //   paginationContainer.innerHTML = ""; // Clear previous buttons
+
+  //   // Previous Button
+  //   const prevButton = document.createElement("button");
+  //   prevButton.textContent = "Prev";
+  //   prevButton.disabled = currentPage === 1;
+  //   prevButton.addEventListener("click", () => goToPage(currentPage - 1));
+  //   paginationContainer.appendChild(prevButton);
+
+  //   // Page Number Buttons
+  //   for (let i = 1; i <= totalPages; i++) {
+  //     const pageButton = document.createElement("button");
+  //     pageButton.textContent = i;
+  //     pageButton.classList.add("page-btn");
+
+  //     if (i === currentPage) {
+  //       pageButton.classList.add("active"); // Highlight current page
+  //     }
+
+  //     pageButton.addEventListener("click", () => goToPage(i));
+  //     paginationContainer.appendChild(pageButton);
+  //   }
+
+  //   // Next Button
+  //   const nextButton = document.createElement("button");
+  //   nextButton.textContent = "Next";
+  //   nextButton.disabled = currentPage === totalPages;
+  //   nextButton.addEventListener("click", () => goToPage(currentPage + 1));
+  //   paginationContainer.appendChild(nextButton);
+  // };
+
+  // const updatePaginationControls = (filteredStartups) => {
+  //   console.log(filteredStartups);
+  //   const totalPages = Math.ceil(filteredStartups.length / itemsPerPage);
+  //   const paginationContainer = document.getElementById("pagination-container");
+
+  //   if (!paginationContainer) {
+  //     console.error("Error: #pagination-container not found in the DOM.");
+  //     return;
+  //   }
+
+  //   paginationContainer.innerHTML = ""; // Clear previous pagination
+
+  //   const createPageButton = (page) => {
+  //     const button = document.createElement("button");
+  //     button.textContent = page;
+  //     button.className = page === currentPage ? "active" : "";
+  //     button.onclick = () => goToPage(page);
+  //     return button;
+  //   };
+
+  //   let pages = new Set();
+
+  //   // Always include the first three pages
+  //   for (let i = 1; i <= Math.min(3, totalPages); i++) {
+  //     pages.add(i);
+  //   }
+
+  //   // Always include the last three pages
+  //   for (let i = Math.max(totalPages - 2, 1); i <= totalPages; i++) {
+  //     pages.add(i);
+  //   }
+
+  //   // Include 3 pages before and after currentPage
+  //   for (
+  //     let i = Math.max(1, currentPage - 2);
+  //     i <= Math.min(totalPages, currentPage + 2);
+  //     i++
+  //   ) {
+  //     pages.add(i);
+  //   }
+
+  //   // Convert Set to sorted array
+  //   const sortedPages = [...pages].sort((a, b) => a - b);
+
+  //   // Generate pagination buttons
+  //   let lastPage = 0;
+  //   sortedPages.forEach((page) => {
+  //     if (lastPage && page !== lastPage + 1) {
+  //       paginationContainer.appendChild(document.createTextNode(" ... "));
+  //     }
+  //     paginationContainer.appendChild(createPageButton(page));
+  //     lastPage = page;
+  //   });
+  // };
 
   const updatePaginationControls = (filteredStartups) => {
     console.log(filteredStartups);
     const totalPages = Math.ceil(filteredStartups.length / itemsPerPage);
-    const prevButton = document.getElementById("prev-button");
-    const nextButton = document.getElementById("next-button");
-    const pageNumber = document.getElementById("page-number");
+    const paginationContainer = document.getElementById("pagination-container");
 
-    // Disable previous button if on the first page
-    prevButton.disabled = currentPage === 1;
+    if (!paginationContainer) {
+      console.error("Error: #pagination-container not found in the DOM.");
+      return;
+    }
 
-    // Disable next button if on the last page
-    nextButton.disabled = currentPage === totalPages;
+    paginationContainer.innerHTML = ""; // Clear previous pagination
 
-    // Update the page number display
-    pageNumber.textContent = `Page ${currentPage} of ${totalPages}`;
+    const createPageButton = (text, page, className = "") => {
+      const button = document.createElement("button");
+      button.textContent = text;
+      button.className = page === currentPage ? "active-page" : "";
+      if (page === currentPage) {
+        button.className = "active-page";
+      }
+      // button.classList.add(className);
+      button.classList.add("pagination-button");
+      button.disabled = page === currentPage;
+      button.onclick = () => goToPage(page);
+      return button;
+    };
+
+    // Previous Button
+    // if (currentPage > 1) {
+    //   paginationContainer.appendChild(
+    //     createPageButton("Prev", currentPage - 1, "prev-button")
+    //   );
+    // }
+    if (currentPage > 1 || currentPage === 1) {
+      const prevButton = createPageButton(
+        "Prev",
+        currentPage - 1,
+        "prev-button"
+      );
+      prevButton.disabled = currentPage === 1; // Disable if currentPage is 1
+      paginationContainer.appendChild(prevButton);
+    }
+
+    let pages = new Set();
+
+    // Always include first three pages
+    for (let i = 1; i <= Math.min(2, totalPages); i++) {
+      pages.add(i);
+    }
+
+    // Always include last three pages
+    for (let i = Math.max(totalPages - 1, 1); i <= totalPages; i++) {
+      pages.add(i);
+    }
+
+    // Include three pages before and after currentPage
+    for (
+      let i = Math.max(1, currentPage - 2);
+      i <= Math.min(totalPages, currentPage + 2);
+      i++
+    ) {
+      pages.add(i);
+    }
+
+    // Convert Set to sorted array
+    const sortedPages = [...pages].sort((a, b) => a - b);
+
+    // Generate pagination buttons
+    let lastPage = 0;
+    sortedPages.forEach((page) => {
+      if (lastPage && page !== lastPage + 1) {
+        paginationContainer.appendChild(document.createTextNode(" ... "));
+      }
+      paginationContainer.appendChild(createPageButton(page, page));
+      lastPage = page;
+    });
+
+    // Next Button
+    if (currentPage <= totalPages) {
+      const nextButton = createPageButton(
+        "Next",
+        currentPage + 1,
+        "next-button"
+      );
+      nextButton.disabled = currentPage === totalPages; // Disable if currentPage is the last page
+      paginationContainer.appendChild(nextButton);
+    }
   };
 
   const goToPage = (page) => {
-    const totalPages = Math.ceil(filteredStartups.length / itemsPerPage);
-    if (page < 1 || page > totalPages) return; // Prevent out-of-bound navigation
+    if (page < 1 || page > totalPages) return;
     currentPage = page;
-
-    // Render the startups for the current page
     renderStartups(filteredStartups);
   };
+  // document.getElementById("next-button").addEventListener("click", function () {
+  //   goToPage(currentPage + 1);
+  // });
+  // document.getElementById("prev-button").addEventListener("click", function () {
+  //   goToPage(currentPage - 1);
+  // });
+
   const initPagination = (startups) => {
     filteredStartups = startups; // Store the filtered startups in global variable
     renderStartups(filteredStartups); // Render startups for the first page
@@ -137,7 +307,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    renderStartups(filtered);
+    filteredStartups = filtered; // Update global filteredStartups
+    currentPage = 1; // Reset to first page
+    renderStartups(filteredStartups);
   };
   document
     .getElementById("clearFuturescope")

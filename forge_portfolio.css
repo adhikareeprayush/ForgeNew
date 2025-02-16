@@ -488,13 +488,49 @@ nav li a .nav-opacity {
 .dropdown button span {
   font-weight: 700;
 }
-.clear-btn-container{
+.clear-btn-container {
   z-index: 50;
 }
 .clear-btn {
   width: fit-content;
   color: rgb(73, 72, 72);
   font-size: 14px;
+}
+
+.filter-container {
+  display: flex;
+  max-height: 1000px;
+  overflow-y: scroll;
+}
+#toggle-filter {
+  position: absolute;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #toggle-filter {
+    display: block;
+    z-index: 200;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  .filter-container {
+    position: absolute;
+    width: 300px;
+    z-index: 100;
+  }
+  #filter-menu {
+    position: absolute;
+    transform: translateX(-400px);
+    transition: transform 0.3s ease-in-out;
+    background-color: white;
+  }
+  #filter-menu.show-menu {
+    transform: translateX(0);
+  }
+  #toggle-filter.show-menu {
+    transform: translateX(300px);
+  }
 }
 
 .filter-btn {
@@ -511,11 +547,13 @@ nav li a .nav-opacity {
 }
 
 /* data container */
+
 .data-container {
   min-height: 300px;
+  height: fit-content;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: start;
 }
 
@@ -537,6 +575,15 @@ nav li a .nav-opacity {
 }
 .data-desc {
   text-align: center;
+}
+
+.pagination-button {
+  padding: 4px 8px;
+  border: none;
+  background-color: transparent;
+}
+.active-page {
+  color: #cf5935;
 }
 
 /* modal */

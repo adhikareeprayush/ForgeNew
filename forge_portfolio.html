@@ -657,8 +657,15 @@
     </div>
 
     <!-- options -->
-    <section style="min-height: 100vh" class="d-flex">
-      <div class="col-4 col-md-3 d-flex flex-column gap-2">
+    <section class="d-flex position-relative " style="height: 100%">
+      <button id="toggle-filter" >
+        M
+      </button>
+
+      <div
+        id="filter-menu"
+        class="filter-container col-4 col-md-3 d-flex flex-column gap-2"
+      >
         <div class="d-flex flex-column flex-wrap gap-2">
           <div class="dropdown">
             <button id="dropdownButton1">
@@ -851,21 +858,14 @@
         <div class="spinner"></div>
       </div>
       <!-- <hr /> -->
-      <div class="data-container position-relative">
+      <div class="data-container position-relative h-fit">
         <div id="loader" class="loader hidden">
           <div class="spinner"></div>
         </div>
-        <div class="d-flex flex-column">
+        <div class="d-flex flex-column align-items-center gap-5">
           <div id="startupsList" class="data-wrapper row gx-0 gy-4"></div>
-          <div id="pagination-controls" class="d-flex justify-content-center">
-            <button id="prev-button" onclick="goToPage(currentPage - 1)">
-              Previous
-            </button>
-            <span id="page-number">Page 1 of 1</span>
-            <button id="next-button" onclick="goToPage(currentPage + 1)">
-              Next
-            </button>
-          </div>
+
+          <div id="pagination-container"></div>
         </div>
       </div>
     </section>
@@ -1086,7 +1086,7 @@
     </script>
     <script src="main.js"></script>
     <!-- <script src="api.js"></script> -->
-    <script src="dropdown.js"></script>
+    <script src="dropdown.js" defer></script>
     <!-- <script src="observer.js"></script> -->
     <script src="forge_portfolio.js"></script>
     <script src="footer-input.js"></script>

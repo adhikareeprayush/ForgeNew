@@ -1,33 +1,14 @@
-// Modal
+// Filter Menu
 document.addEventListener("DOMContentLoaded", () => {
+  const filterMenu = document.getElementById("filter-menu");
+  const toggleButton = document.getElementById("toggle-filter");
 
-  // function toggleDropdown(buttonId, menuId) {
-  //   const button = document.getElementById(buttonId);
-  //   const menu = document.getElementById(menuId);
-
-  //   button.addEventListener("click", function (event) {
-  //     event.stopPropagation(); // Prevent click from bubbling up
-  //     closeAllDropdowns(); // Close all other dropdowns
-  //     menu.style.display = menu.style.display === "block" ? "none" : "block"; // Toggle the current dropdown
-  //   });
-  // }
-
-  // // Close all dropdowns
-  // function closeAllDropdowns() {
-  //   const dropdowns = document.querySelectorAll(".dropdown-menu");
-  //   dropdowns.forEach((menu) => {
-  //     menu.style.display = "none";
-  //   });
-  // }
-
-  // // Initialize dropdowns
-  // toggleDropdown("dropdownButton1", "dropdownMenu1");
-  // toggleDropdown("dropdownButton2", "dropdownMenu2");
-  // toggleDropdown("dropdownButton3", "dropdownMenu3");
-
-  // // Close all dropdowns when clicking outside
-  // document.addEventListener("click", closeAllDropdowns);
+  toggleButton.addEventListener("click", () => {
+    filterMenu.classList.toggle("show-menu");
+    toggleButton.classList.toggle("show-menu");
+  });
 });
+
 
 $(document).ready(function () {
   const value_creation_swiper = new Swiper(".header-swiper", {
