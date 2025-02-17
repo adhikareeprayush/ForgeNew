@@ -394,12 +394,11 @@ document.addEventListener("DOMContentLoaded", () => {
           programmesDropdown.innerHTML =
             `<a href="#" class="filter-item" data-program="all">All </a>` +
             data?.data?.programmes
-              ?.map(
-                (programme) =>
-                  `<a href="#" class="filter-item" data-program="${programme}"
-                  >${programme}
-                </a>`
-              )
+              ?.map((programme) => {
+                return `<a href="#" class="filter-item" data-program="${programme}"
+                  >${programme === "CiX" ? "Ci<sup>X</sup>" : programme}
+                  </a>`;
+              })
               .join("");
         }
 
