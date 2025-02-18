@@ -123,6 +123,37 @@ nav li a .nav-opacity {
   }
 }
 
+/* banner */
+.banner-head {
+  font-size: 40px;
+  color: white;
+  font-weight: 700;
+}
+@media (max-width: 1600px) {
+  .banner-head {
+    font-size: 30px;
+    text-align: left;
+  }
+}
+@media (max-width: 1200px) {
+  .banner-head {
+    font-size: 26px;
+    text-align: left;
+  }
+}
+@media (max-width: 768px) {
+  .banner-head {
+    font-size: 20px;
+    text-align: left;
+  }
+}
+@media (max-width: 500px) {
+  .banner-head {
+    font-size: 14px;
+    text-align: left;
+  }
+}
+
 /* why-forge */
 .why-forge {
   background-color: black;
