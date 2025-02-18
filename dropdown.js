@@ -67,29 +67,37 @@ document.addEventListener("DOMContentLoaded", () => {
     //   (startup) => startup.status == "Active"
     // );
     const startupsList = document.getElementById("startupsList");
-
+    const noDataMessage = document.getElementById("no-data");
     const activeStartups = list.filter((startup) => startup.status == "Active");
     const startupsToShow = getStartupsForPage(currentPage, activeStartups);
 
+    if (startupsToShow.length === 0) {
+      if (loader.classList.contains("hidden")) {
+        noDataMessage.classList.remove("hidden");
+      }
+    } else {
+      noDataMessage.classList.add("hidden");
+    }
     startupsList.innerHTML = startupsToShow
       .map(
         (startup) => `
-            <div data-id="${startup._id}" onclick="showStartupDetails(${
+              <div data-id="${startup._id}" onclick="showStartupDetails(${
           startup._id
         })" class="data-card px-3 col-12 col-md-6 col-lg-4">
-              <img
-                class="data-img"
-                src="${startup?.logo?.url}"
-                alt="${startup?.name || "No Logo"}"
-              />
-              <p class="data-header m-0">${startup.name}</p>
-              <span class="data-desc"
-                >${startup.about}</span
-              >
-            </div>
-          `
+                <img
+                  class="data-img"
+                  src="${startup?.logo?.url}"
+                  alt="${startup?.name || "No Logo"}"
+                />
+                <p class="data-header m-0">${startup.name}</p>
+                <span class="data-desc"
+                  >${startup.about}</span
+                >
+              </div>
+            `
       )
       .join("");
+
     updatePaginationControls(activeStartups);
 
     setTimeout(matchDivHeights, 100);
@@ -217,7 +225,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //     createPageButton("Prev", currentPage - 1, "prev-button")
     //   );
     // }
-    if (currentPage > 1 || currentPage === 1) {
+    if (
+      (currentPage > 1 || currentPage === 1) &&
+      filteredStartups.length !== 0
+    ) {
       const prevButton = createPageButton(
         "Prev",
         currentPage - 1,
@@ -357,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", function (event) {
       event.stopPropagation();
       selectedFilters.futurescope = [];
+      updateClearButtonVisibility();
       document
         .querySelectorAll("#dropdownMenu1 .filter-item")
         .forEach((item) => {
@@ -370,6 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", function (event) {
       event.stopPropagation();
       selectedFilters.stage = [];
+      updateClearButtonVisibility();
       document
         .querySelectorAll("#dropdownMenu2 .filter-item")
         .forEach((item) => {
@@ -383,6 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", function (event) {
       event.stopPropagation();
       selectedFilters.program = [];
+      updateClearButtonVisibility();
       document
         .querySelectorAll("#dropdownMenu3 .filter-item")
         .forEach((item) => {
@@ -395,6 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", function (event) {
       event.stopPropagation();
       selectedFilters.grant = [];
+      updateClearButtonVisibility();
       document
         .querySelectorAll("#dropdownMenu4 .filter-item")
         .forEach((item) => {
@@ -418,28 +433,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const grantsDropdown = document.getElementById("dropdownMenu4");
 
         if (programmesDropdown) {
-          programmesDropdown.innerHTML =
-            `<a href="#" class="filter-item" data-program="all">All </a>` +
-            data?.data?.programmes
-              ?.map((programme) => {
-                return `<a href="#" class="filter-item" data-program="${programme}"
+          programmesDropdown.innerHTML = data?.data?.programmes
+            ?.map((programme) => {
+              return `<a href="#" class="filter-item" data-program="${programme}"
                   >${programme === "CiX" ? "Ci<sup>X</sup>" : programme}
                   </a>`;
-              })
-              .join("");
+            })
+            .join("");
         }
 
         if (grantsDropdown) {
-          grantsDropdown.innerHTML =
-            `<a href="#" class="filter-item" data-grant="all">All </a>` +
-            data?.data?.grants
-              ?.map(
-                (grant) =>
-                  `<a href="#" class="filter-item" data-grant="${grant}"
+          grantsDropdown.innerHTML = data?.data?.grants
+            ?.map(
+              (grant) =>
+                `<a href="#" class="filter-item" data-grant="${grant}"
                   >${grant}
                 </a>`
-              )
-              .join("");
+            )
+            .join("");
         }
       })
       .catch((error) => {
@@ -538,7 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
 
   // Call the function for each dropdown button
   handleDropdownToggle(1, "dropdownTitle1");

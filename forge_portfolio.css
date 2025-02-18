@@ -128,29 +128,34 @@ nav li a .nav-opacity {
   font-size: 40px;
   color: white;
   font-weight: 700;
+  line-height: 40px;
 }
 @media (max-width: 1600px) {
   .banner-head {
     font-size: 30px;
     text-align: left;
+    line-height: 30px;
   }
 }
 @media (max-width: 1200px) {
   .banner-head {
     font-size: 26px;
     text-align: left;
+    line-height: 26px;
   }
 }
 @media (max-width: 768px) {
   .banner-head {
     font-size: 20px;
     text-align: left;
+    line-height: 20px;
   }
 }
 @media (max-width: 500px) {
   .banner-head {
     font-size: 14px;
     text-align: left;
+    line-height: 14px;
   }
 }
 
@@ -607,7 +612,17 @@ nav li a .nav-opacity {
   width: 100%;
   display: flex;
   align-items: start;
-  justify-content: start;
+  justify-content: center;
+}
+
+.data-wrapper {
+  min-width: 100%;
+}
+.no-data {
+  width: 100%;
+  margin: auto;
+  font-size: 20px;
+  color: rgb(65, 65, 65);
 }
 
 .data-card {
