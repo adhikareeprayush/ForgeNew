@@ -294,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (selectedFilters.futurescope.length > 0) {
       clearFuturescopeButton.style.display = "flex";
+    } else {
       clearFuturescopeButton.style.display = "none";
     }
 
@@ -305,6 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (selectedFilters.program.length > 0) {
       clearProgramButton.style.display = "flex";
+    } else {
       clearProgramButton.style.display = "none";
     }
 
@@ -536,6 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
 
   // Call the function for each dropdown button
   handleDropdownToggle(1, "dropdownTitle1");

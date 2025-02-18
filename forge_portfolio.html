@@ -686,7 +686,12 @@
                 </div>
 
                 <img
-                  style="height: 8px; object-fit: contain"
+                  id="arrow1"
+                  style="
+                    height: 8px;
+                    object-fit: contain;
+                    transition: transform 0.3s ease-in-out;
+                  "
                   src="assets/Portfolio/Filters Arrow.svg"
                   alt=""
                 />
@@ -757,7 +762,12 @@
                 </div>
 
                 <img
-                  style="height: 8px; object-fit: contain"
+                  id="arrow2"
+                  style="
+                    height: 8px;
+                    object-fit: contain;
+                    transition: transform 0.3s ease-in-out;
+                  "
                   src="assets/Portfolio/Filters Arrow.svg"
                   alt=""
                 />
@@ -792,7 +802,12 @@
                 </div>
 
                 <img
-                  style="height: 8px; object-fit: contain"
+                  id="arrow3"
+                  style="
+                    height: 8px;
+                    object-fit: contain;
+                    transition: transform 0.3s ease-in-out;
+                  "
                   src="assets/Portfolio/Filters Arrow.svg"
                   alt=""
                 />
@@ -816,7 +831,12 @@
                 </div>
 
                 <img
-                  style="height: 8px; object-fit: contain"
+                  id="arrow4"
+                  style="
+                    height: 8px;
+                    object-fit: contain;
+                    transition: transform 0.3s ease-in-out;
+                  "
                   src="assets/Portfolio/Filters Arrow.svg"
                   alt=""
                 />
@@ -1058,6 +1078,19 @@
             768: { slidesPerView: 3 }, // On tablets, show 3 slides
             1024: { slidesPerView: 4 }, // On desktops, show 4 slides
           },
+        });
+      });
+      const dropdownButtons = document.querySelectorAll(
+        "[id^='dropdownButton']"
+      );
+
+      dropdownButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Select the arrow for the current button
+          const arrow = button.querySelector("img");
+
+          // Toggle the 'arrow-rotate' class to rotate the arrow
+          arrow.classList.toggle("arrow-rotate");
         });
       });
     </script>
