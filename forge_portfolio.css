@@ -386,25 +386,42 @@ nav li a .nav-opacity {
 
 .swiper-button-next {
   position: absolute;
-  top: 65%;
-  right: 10px;
+  margin: auto;
+  right: 20px;
   z-index: 20;
   background: url("assets/Fast/right-arrow.png") no-repeat center center;
   background-size: contain;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   color: transparent;
 }
 
 .swiper-button-prev {
   position: absolute;
-  top: 65%;
-  left: 10px;
+  margin: auto;
+  left: 20px;
   background: url("assets/Fast/left-arrow.png") no-repeat center center;
   background-size: contain;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   color: transparent;
+}
+
+@media (max-width: 768px) {
+  .swiper-container-hero .swiper-wrapper .swiper-slide {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .swiper-button-next {
+    width: 20px;
+    height: 20px;
+    right: 10px;
+  }
+  .swiper-button-prev {
+    width: 20px;
+    height: 20px;
+    left: 10px;
+  }
 }
 
 .hero-title {
@@ -463,14 +480,15 @@ nav li a .nav-opacity {
 }
 
 .dropdown-menu a {
+  margin: 0px 20px;
   display: block;
-  padding: 10px 20px;
+  padding: 10px 10px;
   text-decoration: none;
   color: #333;
 }
 .dropdown-menu a:hover {
-  background-color: #df6438;
-  color: white;
+  border: 1.5px solid rgb(149, 148, 148);
+  border-radius: 5px;
 }
 .dropdown button {
   width: 100%;
