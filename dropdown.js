@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
   let startups = [];
   let selectedFilters = {
-    futurescope: null,
-    stage: null,
-    program: null,
-    grant: null,
+    futurescope: [],
+    stage: [],
+    program: [],
+    grant: [],
   };
   let currentPage = 1;
   let itemsPerPage = 12;
@@ -66,9 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // const activeStartups = filteredStartups.filter(
     //   (startup) => startup.status == "Active"
     // );
-    const secondDiv = document.querySelector(".data-container");
     const startupsList = document.getElementById("startupsList");
-    const firstDiv = document.querySelector(".filter-container");
 
     const activeStartups = list.filter((startup) => startup.status == "Active");
     const startupsToShow = getStartupsForPage(currentPage, activeStartups);
@@ -280,12 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentPage = page;
     renderStartups(filteredStartups);
   };
-  // document.getElementById("next-button").addEventListener("click", function () {
-  //   goToPage(currentPage + 1);
-  // });
-  // document.getElementById("prev-button").addEventListener("click", function () {
-  //   goToPage(currentPage - 1);
-  // });
 
   const initPagination = (startups) => {
     filteredStartups = startups; // Store the filtered startups in global variable
@@ -294,42 +286,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initPagination(startups);
 
-  // Function to filter startups
+  const updateClearButtonVisibility = () => {
+    const clearFuturescopeButton = document.getElementById("clearFuturescope");
+    const clearStageButton = document.getElementById("clearStage");
+    const clearProgramButton = document.getElementById("clearProgram");
+    const clearGrantButton = document.getElementById("clearGrant");
+
+    if (selectedFilters.futurescope.length > 0) {
+      clearFuturescopeButton.style.display = "flex";
+      clearFuturescopeButton.style.display = "none";
+    }
+
+    if (selectedFilters.stage.length > 0) {
+      clearStageButton.style.display = "flex";
+    } else {
+      clearStageButton.style.display = "none";
+    }
+
+    if (selectedFilters.program.length > 0) {
+      clearProgramButton.style.display = "flex";
+      clearProgramButton.style.display = "none";
+    }
+
+    if (selectedFilters.grant.length > 0) {
+      clearGrantButton.style.display = "flex";
+    } else {
+      clearGrantButton.style.display = "none";
+    }
+  };
+
   const filterStartups = () => {
     let filtered = startups;
 
-    if (selectedFilters.futurescope && selectedFilters.futurescope !== "all") {
-      filtered = filtered.filter((startup) => {
-        return startup?.category?.futureScope?.includes(
-          selectedFilters.futurescope
-        );
-      });
+    if (selectedFilters.futurescope.length > 0) {
+      filtered = filtered.filter((startup) =>
+        selectedFilters.futurescope.every((value) =>
+          startup?.category?.futureScope?.includes(value)
+        )
+      );
     }
-    if (selectedFilters.stage && selectedFilters.stage !== "all") {
-      filtered = filtered.filter((startup) => {
-        return startup?.category?.stages?.includes(selectedFilters.stage);
-      });
+    if (selectedFilters.stage.length > 0) {
+      filtered = filtered.filter((startup) =>
+        selectedFilters.stage.every((value) =>
+          startup?.category?.stages?.includes(value)
+        )
+      );
     }
-    if (selectedFilters.program && selectedFilters.program !== "all") {
-      filtered = filtered.filter((startup) => {
-        return startup?.category?.programmes?.includes(selectedFilters.program);
-      });
+    if (selectedFilters.program.length > 0) {
+      filtered = filtered.filter((startup) =>
+        selectedFilters.program.every((value) =>
+          startup?.category?.programmes?.includes(value)
+        )
+      );
     }
-    if (selectedFilters.grant && selectedFilters.grant !== "all") {
-      filtered = filtered.filter((startup) => {
-        return startup?.grants?.includes(selectedFilters.grant);
-      });
+    if (selectedFilters.grant.length > 0) {
+      filtered = filtered.filter((startup) =>
+        selectedFilters.grant.every((value) => startup?.grants?.includes(value))
+      );
     }
 
-    filteredStartups = filtered; // Update global filteredStartups
-    currentPage = 1; // Reset to first page
+    filteredStartups = filtered;
+    currentPage = 1;
     renderStartups(filteredStartups);
   };
+
   document
     .getElementById("clearFuturescope")
     .addEventListener("click", function (event) {
       event.stopPropagation();
-      selectedFilters.futurescope = "all";
+      selectedFilters.futurescope = [];
       document
         .querySelectorAll("#dropdownMenu1 .filter-item")
         .forEach((item) => {
@@ -342,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("clearStage")
     .addEventListener("click", function (event) {
       event.stopPropagation();
-      selectedFilters.stage = "all";
+      selectedFilters.stage = [];
       document
         .querySelectorAll("#dropdownMenu2 .filter-item")
         .forEach((item) => {
@@ -355,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("clearProgram")
     .addEventListener("click", function (event) {
       event.stopPropagation();
-      selectedFilters.program = "all";
+      selectedFilters.program = [];
       document
         .querySelectorAll("#dropdownMenu3 .filter-item")
         .forEach((item) => {
@@ -367,7 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("clearGrant")
     .addEventListener("click", function (event) {
       event.stopPropagation();
-      selectedFilters.grant = "all";
+      selectedFilters.grant = [];
       document
         .querySelectorAll("#dropdownMenu4 .filter-item")
         .forEach((item) => {
@@ -429,21 +454,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       e.preventDefault();
 
-      // Deselect all other items in the same filter category
-      document.querySelectorAll(`${selector} a`).forEach((el) => {
-        el.classList.remove("active");
-      });
-
       const value = item.dataset[filterKey];
 
-      // If it's the same filter, deselect it; otherwise, select the new one
-      if (selectedFilters[filterKey] === value) {
-        selectedFilters[filterKey] = null;
+      if (selectedFilters[filterKey].includes(value)) {
+        selectedFilters[filterKey] = selectedFilters[filterKey].filter(
+          (v) => v !== value
+        );
+        item.classList.remove("active");
       } else {
-        selectedFilters[filterKey] = value;
+        selectedFilters[filterKey].push(value);
         item.classList.add("active");
       }
-
+      updateClearButtonVisibility();
       filterStartups();
     });
   }
@@ -534,9 +556,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const clearFilters = () => {
     selectedFilters = {
-      futurescope: null,
-      stage: null,
-      program: null,
+      futurescope: [],
+      stage: [],
+      program: [],
+      grant: [],
     };
     document.querySelectorAll(".filter-item").forEach((item) => {
       item.classList.remove("active");

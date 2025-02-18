@@ -507,6 +507,8 @@ nav li a .nav-opacity {
   font-weight: 700;
 }
 .clear-btn-container {
+  display: none;
+  align-items: center;
   z-index: 50;
 }
 .clear-btn {
