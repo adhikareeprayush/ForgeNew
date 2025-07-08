@@ -491,6 +491,13 @@ nav li a .nav-opacity {
   color: #df6437;
 }
 
+.venture-wrapper{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(300px, 1fr));
+  width: 100%;
+  gap: 20px;
+}
+
 .venture-card {
   border-radius: 20px;
   overflow: hidden;
@@ -518,7 +525,7 @@ nav li a .nav-opacity {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.6;
+  opacity: 0.2;
   background-color: #000000;
 }
 
@@ -539,8 +546,9 @@ nav li a .nav-opacity {
 
 .venture-card-img {
   width: 100%;
-  max-height: 400px;
+  height: 450px;
   object-fit: cover;
+  filter: brightness(0.4);
 }
 
 @media (max-width: 768px) {
@@ -565,23 +573,27 @@ nav li a .nav-opacity {
 }
 
 @media (min-width: 1500px) {
-  .venture-intro-wrapper {
+  /* .venture-intro-wrapper {
     padding: 60px 40px;
-  }
+  } */
   .venture-intro-img {
     height: 40px;
   }
 }
 
 .venture-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   padding: 20px 40px;
+  z-index: 20;
   color: black;
-  background-color: #df6437;
 }
 .venture-card-info span {
   font-size: 32px;
   font-weight: 600;
   line-height: 28px;
+  color: tomato;
 }
 
 .venture-card-info p {
@@ -684,4 +696,200 @@ nav li a .nav-opacity {
 .dropdown:hover .dropdown-content {
   display: flex;
   flex-direction: column;
+}
+
+
+.verticals-filter-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+
+.verticals-filter-wrapper ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  color: gray;
+}
+
+.verticals-filter-wrapper ul li {
+  padding-block: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.verticals-filter-wrapper ul li:hover {
+  font-weight: 600;
+}
+
+.verticals-cards-container {
+  grid-column: span 3;
+  width: 100%;
+}
+
+.verticals-cards-container .venture-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.verticals-cards-container .venture-wrapper .venture-intro-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+.verticals-cards-container .venture-intro-wrapper .hover-details {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  padding: 30px;
+  width: 100%;
+  transform: translateX(-50%);
+}
+@media (max-width: 1450px) {
+
+  .venture-wrapper {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+
+  .verticals-filter-wrapper {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 1200px) {
+  .venture-wrapper {
+    grid-template-columns: repeat(1, minmax(300px, 1fr));
+  }
+
+  .verticals-filter-wrapper {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+  }
+}
+
+
+@media (max-width: 1080px) {
+  .venture-wrapper {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+
+  .verticals-filter-wrapper {
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+  }
+
+  .verticals-filter-wrapper .venture-wrapper {
+    grid-template-columns: repeat(1, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .venture-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .verticals-filter-wrapper {
+    grid-template-columns: 1fr;
+  }
+} 
+
+#verticalsList li {
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+#verticalsList li:hover,
+#verticalsList li.active {
+  font-weight: 600;;
+}
+
+.venture-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.verticals-cards-container .venture-wrapper{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+
+.venture-card {
+  width: 100%;
+}
+
+/* Ensure images scale properly */
+.venture-card-img,
+.venture-intro-img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Media queries for fine-tuning */
+@media (min-width: 1500px) {
+  .verticals-filter-wrapper .venture-wrapper {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+}
+
+
+@media (max-width: 768px) {
+  .venture-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .venture-wrapper {
+    grid-template-columns: 1fr; /* Stack cards on very small screens */
+    gap: 10px;
+  }
+  .venture-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1080px) {
+  .verticals-filter-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .verticals-filter-wrapper ul {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-block: 20px;
+    gap: 10px;
+  }
+
+}
+
+.venture-card {
+  max-width: 350px;
+  align-self: center;
+
+}
+
+
+#teamCardsContainer {
+  display: flex;
+  flex-direction: column;;
+}
+
+#teamsCardsContainer .venture-wrapper {
+  place-items: start;
+  display: grid;
+  gap: 20px;
+  justify-content: start; /* ensures they align left */
 }
