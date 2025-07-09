@@ -800,13 +800,17 @@ nav li a .nav-opacity {
 
 #verticalsList li {
   cursor: pointer;
+  margin-bottom: 10px;;
   padding: 5px 10px;
+  border-radius: 4px;
   transition: background-color 0.3s;
 }
 
 #verticalsList li:hover,
 #verticalsList li.active {
   font-weight: 600;;
+  background-color: tomato;
+  color: white;
 }
 
 .venture-wrapper {
@@ -893,3 +897,4 @@ nav li a .nav-opacity {
   gap: 20px;
   justify-content: start; /* ensures they align left */
 }
+

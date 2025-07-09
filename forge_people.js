@@ -4,10 +4,6 @@ $(document).ready(function () {
     slidesPerView: 1,
     spaceBetween: 50,
     loop: true,
-    // autoplay: {
-    //   delay: 3000,
-    //   disableOnInteraction: false,
-    // },
     pagination: {
       el: ".card-swiper .swiper-pagination",
       clickable: true,
@@ -24,18 +20,21 @@ $(document).ready(function () {
   });
 });
 
+// Track selected vertical filters
+let selectedVerticals = [];
 
-
-
-// Function to render team cards grouped by category
-function renderTeamCards(teamMembers, selectedVertical = "All") {
+// Function to render team cards based on selected verticals
+function renderTeamCards(teamMembers, selectedVerticals = []) {
   const container = document.getElementById("teamCardsContainer");
   container.innerHTML = "";
 
-  // Filter members by selected vertical
-  const filteredMembers = selectedVertical === "All"
-    ? teamData
-    : teamData.filter(member => member.verticals.includes(selectedVertical));
+  // Filter members by selected verticals (if any)
+  const filteredMembers =
+    selectedVerticals.length === 0
+      ? teamData
+      : teamData.filter(member =>
+          member.verticals.some(v => selectedVerticals.includes(v))
+        );
 
   // Group members by category
   const groupedByCategory = filteredMembers.reduce((acc, member) => {
@@ -47,7 +46,7 @@ function renderTeamCards(teamMembers, selectedVertical = "All") {
     return acc;
   }, {});
 
-  // Define category order
+  // Define display order for categories
   const categoryOrder = [
     "Executive Leadership",
     "Executive - General Management",
@@ -57,25 +56,23 @@ function renderTeamCards(teamMembers, selectedVertical = "All") {
     "Others"
   ];
 
-  // Render each category
+  // Render each category and its cards
   categoryOrder.forEach(category => {
     if (groupedByCategory[category] && groupedByCategory[category].length > 0) {
-      // Add category heading outside the grid
       const heading = document.createElement("div");
       heading.className = "banner-head";
       heading.style.color = "#df6437";
       heading.textContent = category;
       container.appendChild(heading);
 
-      // Create a grid container for cards
       const categoryGrid = document.createElement("div");
       categoryGrid.className = "venture-wrapper";
       container.appendChild(categoryGrid);
 
-      // Sort members by name within category
+      // Sort by name
       groupedByCategory[category].sort((a, b) => a.name.localeCompare(b.name));
 
-      // Render cards for this category
+      // Render each member card
       groupedByCategory[category].forEach(member => {
         const card = document.createElement("div");
         card.className = "venture-card";
@@ -85,11 +82,7 @@ function renderTeamCards(teamMembers, selectedVertical = "All") {
               <div class="venture-overlay"></div>
               <div class="position-relative venture-intro-wrapper">
                 <a href="${member.linkedin || "#"}" target="_blank">
-                  <img
-                    class="venture-intro-img"
-                    src="assets/People/ventures/Group 3498.png"
-                    alt="LinkedIn"
-                  />
+                  <img class="venture-intro-img" src="assets/People/ventures/Group 3498.png" alt="LinkedIn" />
                 </a>
                 <div class="d-flex flex-column gap-2 text-white hover-details">
                   <div class="d-flex align-items-center gap-1">
@@ -100,11 +93,7 @@ function renderTeamCards(teamMembers, selectedVertical = "All") {
                 </div>
               </div>
             </div>
-            <img
-              class="venture-card-img"
-              src="${member.image}"
-              alt="${member.name}"
-            />
+            <img class="venture-card-img" src="${member.image}" alt="${member.name}" />
             <div class="venture-card-info">
               <span>${member.name}</span>
               <p class="m-0">${member.displayRole}${member.displayRole2 ? `, ${member.displayRole2}` : ""}</p>
@@ -118,26 +107,31 @@ function renderTeamCards(teamMembers, selectedVertical = "All") {
 }
 
 // Initial render
-renderTeamCards(teamData);
+renderTeamCards(teamData, selectedVerticals);
 
-// Toggle filter dropdown on small screens
+// Toggle filter dropdown on mobile
 const filterToggleBtn = document.getElementById("filterToggleBtn");
 const verticalsList = document.getElementById("verticalsList");
 filterToggleBtn.addEventListener("click", () => {
   verticalsList.classList.toggle("show");
 });
 
-// Filter team members
+// Handle vertical filter selection
 verticalsList.addEventListener("click", (e) => {
   if (e.target.tagName === "LI") {
-    const selectedVertical = e.target.getAttribute("data-vertical");
-    renderTeamCards(teamData, selectedVertical);
+    const vertical = e.target.getAttribute("data-vertical");
 
-    // Update active state
-    verticalsList
-      .querySelectorAll("li")
-      .forEach((li) => li.classList.remove("active"));
-    e.target.classList.add("active");
+    // Toggle selected vertical
+    if (selectedVerticals.includes(vertical)) {
+      selectedVerticals = selectedVerticals.filter(v => v !== vertical);
+      e.target.classList.remove("active");
+    } else {
+      selectedVerticals.push(vertical);
+      e.target.classList.add("active");
+    }
+
+    // Re-render team cards
+    renderTeamCards(teamData, selectedVerticals);
 
     // Close dropdown on small screens
     if (window.innerWidth <= 720) {
@@ -146,10 +140,9 @@ verticalsList.addEventListener("click", (e) => {
   }
 });
 
-// All verticals button (for larger screens)
+// Reset filters to "All"
 document.getElementById("allVerticalsBtn").addEventListener("click", () => {
-  renderTeamCards(teamData, "All");
-  verticalsList
-    .querySelectorAll("li")
-    .forEach((li) => li.classList.remove("active"));
+  selectedVerticals = [];
+  renderTeamCards(teamData, selectedVerticals);
+  verticalsList.querySelectorAll("li").forEach(li => li.classList.remove("active"));
 });
